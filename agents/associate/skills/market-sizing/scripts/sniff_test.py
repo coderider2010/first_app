@@ -144,48 +144,37 @@ def main():
     # --- Implied per-atom spend vs anchors ---
     if "per_capita" in d:
         pc = d["per_capita"]
-        # ------------------------------------------------------------------
-        # RECONSTRUCTED from here to the end of the file (2026-09-26). The
-        # original was truncated in transit; behavior follows the docstring
-        # above. Replace with the original if it is recovered.
-        # ------------------------------------------------------------------
         for k in ("population", "anchor_low", "anchor_high"):
             if k not in pc:
-                fail_input(f"per_capita missing required key: {k}")
-        pop = float(pc["population"])
-        a_lo, a_hi = float(pc["anchor_low"]), float(pc["anchor_high"])
-        unit = pc.get("unit", "atom")
-        if pop <= 0:
-            errors.append(f"per_capita population is {pop:,.3g} — must be positive")
-        elif a_lo > a_hi:
+                fail_input(f"per_capita requires '{k}'")
+        implied = est / float(pc["population"])
+        unit = pc.get("unit", "per atom")
+        alo, ahi = float(pc["anchor_low"]), float(pc["anchor_high"])
+        if not (alo <= implied <= ahi):
             errors.append(
-                f"per_capita anchors inverted: anchor_low {a_lo:,.3g} > anchor_high {a_hi:,.3g}"
+                f"implied {implied:,.2f} {d['currency']} {unit} is outside the plausible "
+                f"anchor range [{alo:,.2f}, {ahi:,.2f}] — the total or the atom count is wrong"
             )
-        else:
-            implied = est / pop
-            if not (a_lo <= implied <= a_hi):
-                flags.append(
-                    f"implied spend is {implied:,.3g} {d['currency']} per {unit}, outside the "
-                    f"plausible anchor range [{a_lo:,.3g}, {a_hi:,.3g}] — defend the gap or "
-                    f"revisit the sizing"
-                )
 
-    # --- Labeling (year / currency / basis must be explicit) ---
-    for k in ("market", "currency", "basis"):
-        if not isinstance(d[k], str) or not d[k].strip():
-            errors.append(f"'{k}' must be a non-empty label — unlabeled figures cannot ship")
-    if not isinstance(d["year"], int) or isinstance(d["year"], bool) or not (1900 <= d["year"] <= 2100):
-        errors.append(f"'year' must be a four-digit integer year, got {d['year']!r}")
-    if isinstance(d["currency"], str) and d["currency"].strip() and not (
-        len(d["currency"]) == 3 and d["currency"].isalpha() and d["currency"].isupper()
+    # --- Labeling ---
+    for k, msg in (
+        ("year", "estimate year"),
+        ("currency", "currency"),
+        ("basis", "basis (revenue vs GMV vs units)"),
     ):
-        flags.append(
-            f"currency {d['currency']!r} is not an ISO 4217 code (e.g. USD, EUR) — "
-            f"state it unambiguously"
-        )
+        if not d.get(k):
+            errors.append(f"missing {msg} — an unlabeled number is unusable downstream")
 
-    status = "errors_found" if errors else "flags_found" if flags else "pass"
-    print(json.dumps({"status": status, "errors": errors, "flags": flags}, indent=2))
+    status = "errors_found" if errors else ("flags_found" if flags else "pass")
+    print(json.dumps({
+        "status": status,
+        "market": d["market"],
+        "estimate": est,
+        "checks_run": True,
+        "errors": errors,
+        "flags": flags,
+        "note": "green = internally consistent, NOT correct; definitions and sources remain your job",
+    }, indent=2))
 
 
 if __name__ == "__main__":
