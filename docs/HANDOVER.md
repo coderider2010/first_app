@@ -36,9 +36,11 @@ triangulation, source lineage, escalation, and mechanical verification.
 
 ## Gaps between the brief and the zip
 
-1. **`market-sizing/scripts/sniff_test.py` is missing.** The brief calls it "runnable and
-   tested", but the zip has no scripts. It must be recovered from the original chat or
-   rewritten.
+1. **`market-sizing/scripts/sniff_test.py` is only partly original.** It was missing from
+   the zip, and the user's paste was cut off in the per-capita check. Everything from the
+   `RECONSTRUCTED` comment onward (the per-capita check, the labeling check, and the output)
+   is a stand-in. Replace it with the original once recovered. The original tests are
+   missing too.
 2. **Skills live at `agents/associate/skills/`, not a top-level `skills/`.** The plugin
    format expects `skills/` at the plugin root, so they need to move when packaging.
 3. **No plugin scaffolding yet:** no `.claude-plugin/plugin.json`, `commands/`,
