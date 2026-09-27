@@ -199,13 +199,20 @@ class PerCapita(unittest.TestCase):
         _, r = run(sizing(per_capita=pc))
         self.assertTrue(any("anchor range" in e for e in r["errors"]))
 
-    @unittest.expectedFailure
-    def test_zero_population_returns_json_not_a_crash(self):
-        # KNOWN BUG: division by zero crashes with a traceback. When fixed,
-        # this test will "unexpectedly pass" -- then remove the decorator.
+    def test_zero_population_is_error_not_a_crash(self):
+        # Used to crash with ZeroDivisionError. A zero count is a flawed
+        # sizing (errors_found, exit 0), not unusable input (exit 1).
         pc = dict(CLEAN["per_capita"], population=0)
-        code, out = run_raw(json.dumps(sizing(per_capita=pc)))
-        json.loads(out)
+        code, r = run(sizing(per_capita=pc))
+        self.assertEqual(code, 0)
+        self.assertEqual(r["status"], "errors_found")
+        self.assertTrue(any("must be a positive count" in e for e in r["errors"]))
+
+    def test_negative_population_is_error(self):
+        pc = dict(CLEAN["per_capita"], population=-5e6)
+        _, r = run(sizing(per_capita=pc))
+        self.assertTrue(any("must be a positive count" in e for e in r["errors"]))
+        self.assertFalse(any("anchor range" in e for e in r["errors"]))
 
 
 class Labeling(unittest.TestCase):

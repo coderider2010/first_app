@@ -147,10 +147,16 @@ def main():
         for k in ("population", "anchor_low", "anchor_high"):
             if k not in pc:
                 fail_input(f"per_capita requires '{k}'")
-        implied = est / float(pc["population"])
+        pop = float(pc["population"])
         unit = pc.get("unit", "per atom")
         alo, ahi = float(pc["anchor_low"]), float(pc["anchor_high"])
-        if not (alo <= implied <= ahi):
+        implied = est / pop if pop > 0 else None
+        if implied is None:
+            errors.append(
+                f"per_capita population is {pop:,.0f} — must be a positive count of "
+                f"the denominator atom"
+            )
+        elif not (alo <= implied <= ahi):
             errors.append(
                 f"implied {implied:,.2f} {d['currency']} {unit} is outside the plausible "
                 f"anchor range [{alo:,.2f}, {ahi:,.2f}] — the total or the atom count is wrong"
