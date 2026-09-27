@@ -37,8 +37,10 @@ triangulation, source lineage, escalation, and mechanical verification.
 ## Gaps between the brief and the zip
 
 1. **`market-sizing/scripts/sniff_test.py` was missing from the zip.** It is now restored
-   from the original chat, verbatim. Its tests were not recovered. One known bug: a
-   `per_capita.population` of 0 crashes with a traceback instead of returning clean JSON.
+   from the original chat, verbatim. Its original tests were not recovered, so new ones
+   were written in `tests/test_sniff_test.py` (run: `python3 -m unittest discover tests -v`).
+   One known bug: a `per_capita.population` of 0 crashes with a traceback instead of
+   returning clean JSON. It is pinned by an `expectedFailure` test.
 2. **Skills live at `agents/associate/skills/`, not a top-level `skills/`.** The plugin
    format expects `skills/` at the plugin root, so they need to move when packaging.
 3. **No plugin scaffolding yet:** no `.claude-plugin/plugin.json`, `commands/`,
