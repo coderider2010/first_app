@@ -43,8 +43,35 @@ triangulation, source lineage, escalation, and mechanical verification.
    reports an error instead of crashing.
 2. **Skills live at `agents/associate/skills/`, not a top-level `skills/`.** The plugin
    format expects `skills/` at the plugin root, so they need to move when packaging.
-3. **No plugin scaffolding yet:** no `.claude-plugin/plugin.json`, `commands/`,
-   `.mcp.json`, or hooks.
+3. **No plugin scaffolding yet:** no `.claude-plugin/plugin.json`, `commands/`, or
+   `.mcp.json`. The verifier hook exists as project config (below) and must move into
+   the plugin's `hooks/hooks.json` when packaging.
+
+## Submission gate (built 2026-09-28)
+
+The Associate cannot finish a module with broken numbers. The pieces:
+
+- `.claude/agents/associate.md`: subagent definition. It points at the charter and
+  defines the module folder protocol.
+- `.claude/hooks/verify_module.py`: runs on `SubagentStop` for `agent_type: associate`
+  (registered in `.claude/settings.json`).
+- `tests/test_verify_module_hook.py`: 13 tests.
+
+Protocol: each module lives in `engagements/<eng>/modules/<id>/` (`brief.md`, `memo.md`,
+optional `sizing.json`). The Associate ends its final message with `MODULE: <that path>`.
+The gate blocks (exit 2, with feedback to the Associate) if the line is missing, the path
+is not a module folder, `memo.md` is missing, or `sniff_test.py` reports `errors_found`.
+Flags do not block; the verdict is saved to `sniff_result.json` for the EM. Escape valve:
+an `escalation.md` in the folder lets the Associate stop, handing the problem to the EM,
+so the gate can never trap it in a loop.
+
+Decisions: gate on finishing, not on writing `memo.md`, so drafting is never blocked.
+Flags stay advisory until the simple gate proves out. `engagements/` is git-ignored
+because it will hold client data.
+
+Not yet verified live: agent types and hooks load at session start, so the first
+real-subagent run needs a fresh session. The gate only protects sizing modules; other
+module types have no verifier yet.
 
 ## Open questions (from the brief)
 
