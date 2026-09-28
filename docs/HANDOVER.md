@@ -69,9 +69,19 @@ Decisions: gate on finishing, not on writing `memo.md`, so drafting is never blo
 Flags stay advisory until the simple gate proves out. `engagements/` is git-ignored
 because it will hold client data.
 
-Not yet verified live: agent types and hooks load at session start, so the first
-real-subagent run needs a fresh session. The gate only protects sizing modules; other
-module types have no verifier yet.
+Verified live on 2026-09-28. A real `associate` subagent submitted a sizing with its
+estimate outside the method range. The gate blocked it and quoted the error. The
+Associate corrected the estimate and resubmitted, and the gate passed it
+(`sniff_result.json`: `pass`).
+
+Finding from that run: the Associate's first report reached the parent *before* the gate
+ran, and it said nothing had blocked it. The correction arrived later as a separate
+message. The gate guarantees the files end up correct, not that the first message is
+final. Rule for the EM (to add to its charter): accept a module only by reading its
+folder, and treat `sniff_result.json` with status `pass` or `flags_found` as the receipt.
+Never act on the Associate's message alone.
+
+The gate only protects sizing modules; other module types have no verifier yet.
 
 ## Open questions (from the brief)
 
