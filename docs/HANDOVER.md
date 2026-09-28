@@ -83,6 +83,26 @@ Never act on the Associate's message alone.
 
 The gate only protects sizing modules; other module types have no verifier yet.
 
+## First real run (2026-09-28): US pet insurance, screening grade
+
+The Associate returned $6.5B for 2026 (range $5.8–7.3B), with about 13% CAGR to 2031. The
+gate passed it with no flags. It was accepted for screening, but it is not client-ready.
+Lessons:
+
+- **Network egress blocks source pages** (NAPHIA, AVMA, dvm360, SEC EDGAR, Trupanion).
+  Figures came from search summaries only. The fix is to widen Network access in the
+  cloud environment settings, then re-verify.
+- **Method independence is not checked.** Two of the three methods both rested on NAPHIA.
+  The verifier cannot see shared inputs. Candidate rule: each method records its sources,
+  and the gate flags methods that share one.
+- **The Associate chose its own `per_capita` anchors,** so the check can be gamed. Anchors
+  should come from the EM's brief or the fact base.
+- **The curriculum-gap mechanism worked.** The Associate flagged four stub skills it
+  needed: `module-memo`, `fact-base-contribution`, `confidentiality-check` and
+  `source-vetting`.
+- **It caught a scope trap.** "$5.2B" is the North America 2024 figure, not US 2025. This
+  is an early candidate for the fact base.
+
 ## Open questions (from the brief)
 
 1. Fact-base design: version control for facts (supersede vs. fork, conflicts, locks,
