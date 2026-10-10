@@ -2,7 +2,7 @@
 
 **Goal:** a production web app, used by one person (the user, acting as Partner), that runs
 an engagement end to end and can be demoed. The demo case is
-[Project Hub](engagements/hubspot-acquisition.md): what is HubSpot worth per share?
+[Project Hub](engagements/hubspot-value.md): what is HubSpot worth per share?
 
 ## Decisions (2026-10-10)
 
@@ -40,7 +40,7 @@ Each phase ends with something the user can see and test.
 - Fixes from the first run: benchmark ranges come from the brief, not the Analyst, and
   methods must cite independent sources.
 
-**Done when:** module 1b ("what the price implies") passes the gate on real filing data.
+**Done when:** module 2 ("what the price implies") passes the gate on real filing data.
 
 ### Phase 4: The Engagement Manager as an agent
 - The EM turns the key question into modules and briefs.

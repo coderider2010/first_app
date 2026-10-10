@@ -3,7 +3,7 @@
 This repo builds the **Analyst Agent** ("Associate") for an AI-native professional-services
 firm. Read `docs/HANDOVER.md` first: it holds the goal, architecture, decisions, known gaps,
 and build order. The current plan is `docs/PROJECT_PLAN.md`; the demo engagement is
-`docs/engagements/hubspot-acquisition.md`.
+`docs/engagements/hubspot-value.md`.
 
 - Charters: `agents/associate/AGENTS.md` (Analyst) and `agents/engagement-manager/AGENTS.md` (EM).
 - Skills: `agents/associate/skills/*/SKILL.md`. Stubs are marked `STATUS: STUB`.

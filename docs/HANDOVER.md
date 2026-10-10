@@ -119,7 +119,7 @@ Lessons:
 
 The user wants a production web app they can use and demo. The plan lives in
 `docs/PROJECT_PLAN.md`. Decisions so far: the demo engagement is "What is HubSpot worth
-per share?", standalone value only (`docs/engagements/hubspot-acquisition.md`; narrowed
+per share?", standalone value only (`docs/engagements/hubspot-value.md`; narrowed
 from a buy-side deal question to keep it simple), the user is the only user, data
 comes from free sources only, and the runtime is the Claude Agent SDK. Work goes top-down:
 engagement first, then the Analyst's workstream, then how the Analyst does the work.
