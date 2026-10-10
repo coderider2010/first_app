@@ -2,14 +2,13 @@
 
 **Goal:** a production web app, used by one person (the user, acting as Partner), that runs
 an engagement end to end and can be demoed. The demo case is
-[Project Hub](engagements/hubspot-acquisition.md): should a client buy HubSpot, and at
-what price?
+[Project Hub](engagements/hubspot-acquisition.md): what is HubSpot worth per share?
 
 ## Decisions (2026-10-10)
 
 | Decision | Choice |
 |---|---|
-| Demo engagement | Buy-side: should the client acquire HubSpot, and what is the walk-away price? |
+| Demo engagement | What is HubSpot worth per share? Standalone value only (narrowed from a buy-side deal question) |
 | Users | The user only, for now |
 | Data | Free sources only (SEC EDGAR, company IR, web) |
 | Runtime | Claude Agent SDK, self-hosted backend |
@@ -20,9 +19,9 @@ Each phase ends with something the user can see and test.
 
 ### Phase 1: The engagement, top-down
 - Engagement document: client, key question, working answer, workstreams. *(Drafted.)*
-- Briefs for the Analyst's first workstream (WS1, standalone value).
+- Briefs for the four modules: fact pack, what the price implies, DCF scenarios, peer comparison.
 
-**Done when:** the user approves the engagement document and the WS1 briefs.
+**Done when:** the user approves the engagement document and the four briefs.
 
 ### Phase 2: Data access (free sources)
 - Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data), plus
@@ -32,8 +31,8 @@ Each phase ends with something the user can see and test.
 
 **Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link.
 
-### Phase 3: The Analyst's curriculum for WS1
-- New skills: `implied-expectations`, `valuation-dcf`, `precedent-transactions`.
+### Phase 3: The Analyst's curriculum for Project Hub
+- New skills: `implied-expectations`, `valuation-dcf`.
 - Finish the stubs: `company-profile`, `benchmarking`, and the closing four
   (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`).
 - A valuation checker (like `sniff_test.py`) that catches classic DCF errors, wired into
@@ -44,12 +43,12 @@ Each phase ends with something the user can see and test.
 **Done when:** module 1b ("what the price implies") passes the gate on real filing data.
 
 ### Phase 4: The Engagement Manager as an agent
-- The EM turns the key question into a hypothesis tree, workstreams and briefs.
+- The EM turns the key question into modules and briefs.
 - It accepts modules only after checking the receipt.
-- It pauses for Partner approval of the plan and of the recommendation.
+- It pauses for Partner approval of the plan and of the final answer.
 
-**Done when:** the user asks the key question, approves a plan, and gets back a draft
-recommendation built from Analyst modules.
+**Done when:** the user asks "What is HubSpot worth?", approves a plan, and gets back a
+value range built from Analyst modules.
 
 ### Phase 5: Fact base MVP
 - One record per number: value, definition, source and history. Analysts write to it; the
@@ -62,7 +61,7 @@ recommendation built from Analyst modules.
   and gate. First step: a small spike to confirm the gate hook works unchanged.
 - Storage for engagements and module outputs, replacing the temporary `engagements/` folder.
 - Screens: engagement list, engagement page, module page (memo, sources, receipt, flags),
-  recommendation.
+  final answer.
 - Login for one user, live progress while agents work, a spending cap per engagement.
 
 **Done when:** the user starts and follows an engagement from a web link, without Claude Code.
