@@ -18,10 +18,11 @@ an engagement end to end and can be demoed. The demo case is
 Each phase ends with something the user can see and test.
 
 ### Phase 1: The engagement, top-down
-- Engagement document: client, key question, working answer, workstreams. *(Drafted.)*
-- Briefs for the four modules: fact pack, what the price implies, DCF scenarios, peer comparison.
+- Engagement document: client, key question, working answer, modules. *(Done.)*
+- Briefs for the four modules: fact pack, what the price implies, DCF scenarios, peer
+  comparison. *(Done: `docs/engagements/hubspot-value/briefs/`.)*
 
-**Done when:** the user approves the engagement document and the four briefs.
+**Done when:** the user approves the engagement document and the four briefs. ✅ 2026-10-10
 
 ### Phase 2: Data access (free sources)
 - Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data), plus

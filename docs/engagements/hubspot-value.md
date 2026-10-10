@@ -1,6 +1,6 @@
 # Engagement: Project Hub (what is HubSpot worth?)
 
-**Status:** Draft for Partner review · **Started:** 2026-10-10 · **Partner:** the user
+**Status:** Plan approved by Partner 2026-10-10 · **Started:** 2026-10-10 · **Partner:** the user
 
 ## The client and the question
 
@@ -34,6 +34,11 @@ source.
 | 3. DCF scenarios | What is it worth under bear, base and bull assumptions? | `valuation-dcf` | **Missing** |
 | 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Stub |
 
+Briefs: [01 fact pack](hubspot-value/briefs/01-fact-pack.md) ·
+[02 what the price implies](hubspot-value/briefs/02-implied-expectations.md) ·
+[03 DCF scenarios](hubspot-value/briefs/03-dcf-scenarios.md) ·
+[04 peer comparison](hubspot-value/briefs/04-peer-comparison.md)
+
 Order: 1 first, since everything uses its numbers. Then 2, which frames the debate. Then 3
 and 4, two independent views of value that should roughly agree. If they disagree a lot,
 the Analyst explains why rather than averaging them.
@@ -49,5 +54,5 @@ the Analyst explains why rather than averaging them.
 
 ## Partner checkpoints (the user)
 
-1. Approve this plan and the four briefs.
+1. ~~Approve this plan and the four briefs.~~ Done 2026-10-10.
 2. Approve the final value range.
