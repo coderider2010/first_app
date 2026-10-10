@@ -115,7 +115,15 @@ Lessons:
 6. Confidentiality: move it from a skill (advice) to a hook (block) before any
    multi-client use.
 
-## Build order (from the brief)
+## Current direction (2026-10-10)
+
+The user wants a production web app they can use and demo. The plan lives in
+`docs/PROJECT_PLAN.md`. Decisions so far: the demo engagement is a buy-side HubSpot
+acquisition (`docs/engagements/hubspot-acquisition.md`), the user is the only user, data
+comes from free sources only, and the runtime is the Claude Agent SDK. Work goes top-down:
+engagement first, then the Analyst's workstream, then how the Analyst does the work.
+
+## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.
 2. Hooks for the verifier and for confidentiality.
