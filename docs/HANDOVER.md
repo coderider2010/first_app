@@ -178,6 +178,43 @@ and investments, no debt, 49.87M shares (2026-07-31).
 5. `edgar_search_concepts`: sort by latest period or hide tags unused since ~2018.
 6. Dimensioned facts (subscription vs services split) are not exposed.
 
+## Module 02, what the price implies (2026-10-11)
+
+Phase 3's "done when" is met: module 2 passed the gate on real filing data. Memo:
+`engagements/hubspot-value/modules/02-implied-expectations/memo.md`.
+
+- **Answer:** at $228.30 (close 2026-10-09) the market prices in ~9% growth for 10 years
+  and a ~17% long-run FCF margin after SBC. That margin is below all four named peers
+  (Autodesk 22.5%, Salesforce 26.2%, Intuit 30.6%, Adobe 33.3%). At Autodesk's margin the
+  price needs only 5.8% growth. Discount rate 10.5% (CAPM: 5.24% + 1.25 × 4.20%),
+  terminal growth 3.0% (cap 4.0%), diluted shares 52.45M, EV $10.66B.
+- **This cuts against the working answer** ("price assumes fast growth and rising
+  margins"). Escalated to the Partner; the working answer is unchanged until they decide.
+  EM note: "undemanding" assumes HubSpot converges to mature peers; Module 3's bear case
+  should test non-convergence (for example AI pressure on seat-based software).
+- **Built for it:** `implied-expectations` skill with `reverse_dcf.py` (model; implied
+  margin is exact because EV is linear in the margin) and `valuation_check.py` (classic
+  DCF errors), now run by the gate on `valuation.json`. Closing four skills written.
+  Peer set is fixed in the brief, not chosen by the Analyst.
+- **EM check:** price, Treasury yield, Adobe peer figures and the model re-run were
+  verified independently; all tie.
+- **Unverified input:** Analyst Day 2030 targets (30% non-GAAP operating margin, SBC 10%
+  of revenue) come from one secondary article; the IR site blocks automated access.
+
+### implied-expectations backlog (from the Associate's notes)
+
+1. Diluted shares fallback order when the 10-Q has no award table: anti-dilutive table +
+   dilutive shares, then the 10-K roll-forward, then an estimate.
+2. Checker: also flag a margin *below the lowest peer* ("undemanding; check against the
+   working answer"), which is the charter's top escalation; check diluted > basic shares;
+   ask how the headline growth was chosen.
+3. `reverse_dcf.py`: accept a growth path (fade), not only constant growth; produce the
+   terminal growth ±0.5 point runs; mention mid-year discounting (~0.8 point lower margins).
+4. Skill guidance on debt-like items (leases: don't add; restructuring cash: add) and on
+   SBC capitalized into software.
+5. Name Damodaran's current ERP page (`New_Home_Page/home.htm`); `implpr.html` stops in 2016.
+6. Connector: `edgar_read_filing` missed an exact phrase in the 10-K (likely whitespace).
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.

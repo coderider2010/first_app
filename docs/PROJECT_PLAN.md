@@ -36,17 +36,19 @@ Each phase ends with something the user can see and test.
 **Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link. ✅ 2026-10-11
 
 ### Phase 3: The Analyst's curriculum for Project Hub
-- New skills: `implied-expectations`, `valuation-dcf`.
-- Finish the stubs: `company-profile`, `benchmarking`, and the closing four
-  (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`).
+- New skills: `implied-expectations` *(done)*, `valuation-dcf` *(open)*.
+- Finish the stubs: `company-profile`, `benchmarking` *(open)*, and the closing four
+  (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`)
+  *(done)*.
 - A valuation checker (like `sniff_test.py`) that catches classic DCF errors, wired into
-  the gate.
+  the gate. *(Done for reverse DCF: `valuation_check.py`; extend for module 3.)*
+- Skill fixes from the module 2 run (HANDOVER, "implied-expectations backlog"). *(Open.)*
 - Fixes from the first run: benchmark ranges come from the brief, not the Analyst, and
   methods must cite independent sources.
-- Add a fully diluted share count (RSUs, PSUs, options from the latest 10-Q) to Brief 01
-  or Brief 02; the fact pack does not collect it and per-share value needs it.
+- Add a fully diluted share count to Brief 02. *(Done.)*
 
-**Done when:** module 2 ("what the price implies") passes the gate on real filing data.
+**Done when:** module 2 ("what the price implies") passes the gate on real filing data. ✅ 2026-10-11 (remaining items above are
+for modules 3 and 4)
 
 ### Phase 4: The Engagement Manager as an agent
 - The EM turns the key question into modules and briefs.
