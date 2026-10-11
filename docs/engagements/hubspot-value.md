@@ -29,8 +29,8 @@ source.
 
 | Module | Question it answers | Skill | Skill status |
 |---|---|---|---|
-| 1. Company fact pack | What are HubSpot's actual numbers? Revenue, growth, margins, cash flow, customers, retention, share count | `company-profile` | Stub |
-| 2. What the price implies | What growth and margins does today's share price assume? | `implied-expectations` | **Missing** |
+| 1. Company fact pack | What are HubSpot's actual numbers? Revenue, growth, margins, cash flow, customers, retention, share count | `company-profile` | Stub (module done 2026-10-11) |
+| 2. What the price implies | What growth and margins does today's share price assume? | `implied-expectations` | Full |
 | 3. DCF scenarios | What is it worth under bear, base and bull assumptions? | `valuation-dcf` | **Missing** |
 | 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Stub |
 

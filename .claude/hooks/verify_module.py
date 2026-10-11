@@ -10,6 +10,8 @@ Protocol (see .claude/agents/associate.md):
   - That folder must contain memo.md.
   - If it contains sizing.json, sniff_test.py must not report errors_found.
     The verdict is saved to sniff_result.json so the EM can see any flags.
+  - If it contains valuation.json, valuation_check.py must not report errors_found.
+    The verdict is saved to valuation_result.json.
   - Escape valve: if the folder contains escalation.md, the Associate has handed
     the problem to the EM (per AGENTS.md) and may stop.
 """
@@ -21,7 +23,14 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-VERIFIER = REPO / "agents" / "associate" / "skills" / "market-sizing" / "scripts" / "sniff_test.py"
+SKILLS = REPO / "agents" / "associate" / "skills"
+# Module file -> (verifier script, where its verdict is saved).
+VERIFIERS = {
+    "sizing.json": (SKILLS / "market-sizing" / "scripts" / "sniff_test.py", "sniff_result.json"),
+    "valuation.json": (
+        SKILLS / "implied-expectations" / "scripts" / "valuation_check.py", "valuation_result.json"
+    ),
+}
 MODULE_LINE = re.compile(r"^\s*MODULE:\s*(\S+)\s*$", re.MULTILINE)
 
 SUBMIT_HELP = (
@@ -33,6 +42,26 @@ SUBMIT_HELP = (
 def block(msg):
     print(msg, file=sys.stderr)
     sys.exit(2)
+
+
+def run_verifier(module, name, verifier, result_name):
+    """Run one verifier on one module file; block the stop if it reports errors."""
+    proc = subprocess.run(
+        [sys.executable, str(verifier), str(module / name)], capture_output=True, text=True
+    )
+    (module / result_name).write_text(proc.stdout)
+    if proc.returncode != 0:
+        block(f"Submission blocked: {verifier.name} could not read {name}: {proc.stdout.strip()}")
+
+    result = json.loads(proc.stdout)
+    if result["status"] == "errors_found":
+        errors = "\n".join(f"  - {e}" for e in result["errors"])
+        block(
+            f"Submission blocked: {verifier.name} reports errors in {name}. Fix them, update "
+            f"memo.md to match, and submit again:\n{errors}\n"
+            "If you cannot resolve them, write escalation.md in the module folder explaining "
+            "why, per the AGENTS.md escalation rules."
+        )
 
 
 def main():
@@ -56,26 +85,9 @@ def main():
     if not (module / "memo.md").exists():
         block(f"Submission blocked: {matches[-1]}/memo.md does not exist. Write the module memo first.")
 
-    sizing = module / "sizing.json"
-    if not sizing.exists():
-        sys.exit(0)
-
-    proc = subprocess.run(
-        [sys.executable, str(VERIFIER), str(sizing)], capture_output=True, text=True
-    )
-    (module / "sniff_result.json").write_text(proc.stdout)
-    if proc.returncode != 0:
-        block(f"Submission blocked: sniff_test.py could not read sizing.json: {proc.stdout.strip()}")
-
-    result = json.loads(proc.stdout)
-    if result["status"] == "errors_found":
-        errors = "\n".join(f"  - {e}" for e in result["errors"])
-        block(
-            "Submission blocked: sniff_test.py reports errors in sizing.json. Fix them, update "
-            f"memo.md to match, and submit again:\n{errors}\n"
-            "If you cannot resolve them, write escalation.md in the module folder explaining "
-            "why, per the AGENTS.md escalation rules."
-        )
+    for name, (verifier, result_name) in VERIFIERS.items():
+        if (module / name).exists():
+            run_verifier(module, name, verifier, result_name)
     sys.exit(0)
 
 
