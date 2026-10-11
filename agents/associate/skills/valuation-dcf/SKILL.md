@@ -41,9 +41,10 @@ A good pair of stories:
    it once.
 5. **Value it:**
    ```
-   python3 agents/associate/skills/valuation-dcf/scripts/dcf.py valuation.json
+   python3 agents/associate/skills/valuation-dcf/scripts/dcf.py valuation.json --write
    ```
-   Paste each scenario's numbers and the `sensitivity` list into `valuation.json`. Use
+   `--write` saves each scenario's numbers and the `sensitivity` list into
+   `valuation.json` (without it, the script only prints). Use
    `years` for the memo's drivers table. **Never edit values by hand**: the gate
    recomputes every one.
 6. **Check yourself:** run `valuation_check.py valuation.json` and address every flag.

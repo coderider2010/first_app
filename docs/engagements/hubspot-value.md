@@ -36,7 +36,7 @@ source.
 | 1. Company fact pack | What are HubSpot's actual numbers? Revenue, growth, margins, cash flow, customers, retention, share count | `company-profile` | Stub (module done 2026-10-11) |
 | 2. What the price implies | What growth and margins does today's share price assume? | `implied-expectations` | Full |
 | 3. DCF scenarios | What is it worth under two stories: grows up vs squeezed? | `valuation-dcf` | Full |
-| 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Stub |
+| 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Full |
 
 Briefs: [01 fact pack](hubspot-value/briefs/01-fact-pack.md) ·
 [02 what the price implies](hubspot-value/briefs/02-implied-expectations.md) ·
