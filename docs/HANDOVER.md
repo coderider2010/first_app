@@ -189,7 +189,8 @@ Phase 3's "done when" is met: module 2 passed the gate on real filing data. Memo
   price needs only 5.8% growth. Discount rate 10.5% (CAPM: 5.24% + 1.25 × 4.20%),
   terminal growth 3.0% (cap 4.0%), diluted shares 52.45M, EV $10.66B.
 - **This cuts against the working answer** ("price assumes fast growth and rising
-  margins"). Escalated to the Partner; the working answer is unchanged until they decide.
+  margins"). Escalated to the Partner, who **kept the working answer** (2026-10-11) as the
+  hypothesis for Module 3 to test.
   EM note: "undemanding" assumes HubSpot converges to mature peers; Module 3's bear case
   should test non-convergence (for example AI pressure on seat-based software).
 - **Built for it:** `implied-expectations` skill with `reverse_dcf.py` (model; implied

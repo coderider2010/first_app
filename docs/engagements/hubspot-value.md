@@ -19,6 +19,10 @@ now; they can be added later as separate workstreams.
 > Today's share price assumes HubSpot keeps growing quickly while expanding margins. Its
 > value depends on whether those assumptions are realistic.
 
+*2026-10-11: Module 2 found the price implies ~9% growth and a ~17% margin, below every
+mature peer, which cuts against this. The Partner chose to keep the working answer as the
+hypothesis for Module 3 to test.*
+
 ## Output
 
 A one-page answer: a **value range per share** (bear, base, bull), today's price for
