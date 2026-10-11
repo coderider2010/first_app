@@ -51,9 +51,14 @@ Each phase ends with something the user can see and test.
 for modules 3 and 4)
 
 ### Phase 4: The Engagement Manager as an agent
-- The EM turns the key question into modules and briefs.
-- It accepts modules only after checking the receipt.
-- It pauses for Partner approval of the plan and of the final answer.
+- The EM turns the key question into modules and briefs. *(Built: `/engagement` skill and
+  `module-briefing` skill. The EM runs as the main session, since Claude Code subagents
+  can't launch subagents.)*
+- It accepts modules only after checking the receipt. *(Built: `em_receipt.py`; pinned
+  shared inputs in `engagement.json`; random spot checks.)*
+- It pauses for Partner approval of the plan and of the final answer. *(In the playbook.)*
+- Test: the Partner runs `/engagement What is HubSpot worth per share?` in a new session;
+  Project Hub (2026-10-11) is the answer key. *(Open.)*
 
 **Done when:** the user asks "What is HubSpot worth?", approves a plan, and gets back a
 value range built from Analyst modules.
