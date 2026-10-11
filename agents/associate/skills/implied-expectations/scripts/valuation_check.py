@@ -7,16 +7,19 @@ Usage:
 Input: a JSON file. Rates are decimals (0.095 = 9.5%); money is in currency units
 (not millions). "Sourced" fields are objects {"value": ..., "source": "..."}.
 
-Two types share most keys: "reverse_dcf" (what the price implies; module 2) and
-"dcf" (value per share under named scenarios; module 3).
+Three types share the target company's market inputs: "reverse_dcf" (what the price
+implies; module 2), "dcf" (value per share under named scenarios; module 3) and
+"comps" (what listed peers imply; module 4).
 
-Required keys (both types):
-    type              "reverse_dcf" or "dcf"
+Required keys (all types):
+    type              "reverse_dcf", "dcf" or "comps"
     company, as_of    str; as_of is the valuation date, YYYY-MM-DD
     currency          str
     price             {"value", "date", "source"}        share price used
     shares            {"value", "basis", "source"}       basis "diluted" or "basic"
     debt, cash        sourced numbers (cash includes investments)
+
+Required for both DCF types:
     equity_value      price x shares
     enterprise_value  equity_value + debt - cash + sum(other_ev_adjustments)
     base_revenue      {"value", "period", "source"}      e.g. TTM revenue
@@ -31,6 +34,19 @@ Required for "reverse_dcf":
     equity_value, enterprise_value   as above
     grid              [{"growth", "wacc", "margin"}, ...] from reverse_dcf.py
     headline          {"growth", "margin", "wacc"}       the answer-first sentence
+
+Required for "comps" (generate the numbers with benchmarking/scripts/comps.py):
+    target            {"revenue_ttm", "revenue_growth", "fcf_after_sbc_ttm"}, sourced
+    selection_rules   [str, ...]  written before looking at multiples (from the brief)
+    candidates        [{"name", "included": bool, "reason"}, ...] every company
+                      considered; each exclusion needs a reason
+    peers             {"name": {"price" (dated), "shares", "cash", "debt",
+                       "revenue_ttm", "revenue_growth", "fcf_after_sbc_ttm"}} all sourced,
+                       plus the computed "enterprise_value", "ev_revenue", "rule_of_40"
+    methods           {"median_ev_revenue", "rule_of_40_regression", "median_ev_fcf"}
+                      value per share under each
+    regression        {"slope", "intercept", "r2", "residual_spread"}
+    range             {"low", "high", "basis": "regression_band" or "methods"}
 
 Required for "dcf" (generate the numbers with valuation-dcf/scripts/dcf.py):
     scenarios         {"name": {
@@ -70,14 +86,16 @@ from datetime import date
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import reverse_dcf as model  # noqa: E402
 
-REQUIRED = [
-    "type", "company", "as_of", "currency", "price", "shares", "debt", "cash",
-    "base_revenue", "base_fcf_margin", "sbc_treatment", "discount_rate", "terminal_growth",
-]
+REQUIRED = ["type", "company", "as_of", "currency", "price", "shares", "debt", "cash"]
+DCF_INPUTS = ["base_revenue", "base_fcf_margin", "sbc_treatment", "discount_rate", "terminal_growth"]
 REQUIRED_BY_TYPE = {
-    "reverse_dcf": ["equity_value", "enterprise_value", "grid", "headline"],
-    "dcf": ["scenarios", "sensitivity"],
+    "reverse_dcf": DCF_INPUTS + ["equity_value", "enterprise_value", "grid", "headline"],
+    "dcf": DCF_INPUTS + ["scenarios", "sensitivity"],
+    "comps": ["target", "selection_rules", "candidates", "peers", "methods", "regression", "range"],
 }
+MIN_PEERS, FEW_PEERS = 3, 5
+WEAK_FIT_R2 = 0.3
+MULTIPLE_SPREAD_FLAG = 6   # growth adjustment should explain spreads below this
 VALUE_TOL = 0.01       # scenario values must match a recompute within 1%
 SCENARIOS_TOO_CLOSE = 0.10
 MIN_EVIDENCE = 2
@@ -123,10 +141,15 @@ def main():
         fail_input(f"missing required keys: {missing}")
     try:
         errors, flags = check_common(d)
-        more = check_reverse(d) if d["type"] == "reverse_dcf" else check_scenarios(d)
+        if d["type"] in ("reverse_dcf", "dcf"):
+            more = check_dcf_inputs(d)
+            errors += more[0]
+            flags += more[1]
+        checker = {"reverse_dcf": check_reverse, "dcf": check_scenarios, "comps": check_comps}
+        more = checker[d["type"]](d)
         errors += more[0]
         flags += more[1]
-    except (KeyError, TypeError, ValueError) as e:
+    except (KeyError, TypeError, ValueError, ZeroDivisionError) as e:
         fail_input(f"malformed field: {type(e).__name__}: {e}")
 
     status = "errors_found" if errors else ("flags_found" if flags else "pass")
@@ -142,11 +165,11 @@ def main():
 
 
 def check_common(d):
-    """Checks that apply to any valuation: sources, shares, SBC, discount and terminal rates."""
+    """Checks for any valuation: the target's price, shares, cash and debt."""
     errors, flags = [], []
 
     # --- Sources: every input cited (brief rule; untraceable numbers are not presented) ---
-    for key in ("price", "shares", "debt", "cash", "base_revenue", "base_fcf_margin"):
+    for key in ("price", "shares", "debt", "cash"):
         if unsourced(d[key]):
             errors.append(f"{key} has no source")
     if not d["price"].get("date"):
@@ -172,6 +195,16 @@ def check_common(d):
             errors.append("price date is after the valuation date (as_of)")
     except (ValueError, TypeError):
         errors.append("as_of and price.date must be YYYY-MM-DD")
+
+    return errors, flags
+
+
+def check_dcf_inputs(d):
+    """Checks for both DCF types: base figures, SBC, discount rate and terminal growth."""
+    errors, flags = [], []
+    for key in ("base_revenue", "base_fcf_margin"):
+        if unsourced(d[key]):
+            errors.append(f"{key} has no source")
 
     # --- Stock-based compensation ---
     sbc = d["sbc_treatment"]
@@ -443,6 +476,109 @@ def check_scenarios(d):
         if round(wacc + off, 4) not in waccs:
             errors.append(f"sensitivity has no discount rate {pct(wacc + off)} (brief: ±1 point)")
 
+    return errors, flags
+
+
+
+def check_comps(d):
+    """Peer comparison: audit trail for the peer set, recompute every number, read the fit."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    "..", "..", "benchmarking", "scripts"))
+    import comps  # noqa: E402
+
+    errors, flags = [], []
+
+    # --- The peer set: rules first, every candidate accounted for ---
+    if not [r for r in d["selection_rules"] if str(r).strip()]:
+        errors.append("no selection_rules: write the rules before choosing peers")
+    included = {c["name"] for c in d["candidates"] if c.get("included")}
+    for c in d["candidates"]:
+        if not c.get("included") and not str(c.get("reason", "")).strip():
+            errors.append(f"candidate {c.get('name', '?')} excluded without a reason")
+    peers = d["peers"]
+    if set(peers) != included:
+        errors.append(
+            f"peers {sorted(peers)} do not match the candidates marked included "
+            f"{sorted(included)}: every peer must come through the selection record"
+        )
+    if len(peers) < MIN_PEERS:
+        errors.append(f"{len(peers)} peers; need at least {MIN_PEERS} to compare anything")
+    elif len(peers) < FEW_PEERS:
+        flags.append(f"only {len(peers)} peers: one company moves the median a lot")
+
+    # --- Every peer input sourced and recent ---
+    t = d["target"]
+    for key in ("revenue_ttm", "revenue_growth", "fcf_after_sbc_ttm"):
+        if unsourced(t[key]):
+            errors.append(f"target.{key} has no source")
+    for name, p in peers.items():
+        for key in ("price", "shares", "cash", "debt", "revenue_ttm", "revenue_growth",
+                    "fcf_after_sbc_ttm"):
+            if unsourced(p[key]):
+                errors.append(f"{name}: {key} has no source")
+        try:
+            age = (date.fromisoformat(d["as_of"]) - date.fromisoformat(p["price"]["date"])).days
+            if age > STALE_PRICE_DAYS or age < 0:
+                flags.append(f"{name}: price dated {p['price']['date']} is not within "
+                             f"{STALE_PRICE_DAYS} days before as_of")
+        except (ValueError, TypeError, KeyError):
+            errors.append(f"{name}: price needs a YYYY-MM-DD date")
+
+    # --- Recompute: peers, regression, methods, range ---
+    out = comps.run(d)
+    bad = []
+    for name, m in out["peers"].items():
+        for key in ("enterprise_value", "ev_revenue", "rule_of_40"):
+            stated = peers[name].get(key)
+            if stated is None or abs(float(stated) - m[key]) > MONEY_TOL * max(abs(m[key]), 1e-9):
+                bad.append(f"{name} {key}: says {stated}, recomputed {m[key]}")
+    for key, v in out["methods"].items():
+        stated = d["methods"].get(key)
+        if stated is None or abs(float(stated) - v) > VALUE_TOL * abs(v):
+            bad.append(f"method {key}: says {stated}, recomputed {v}")
+    for key in ("slope", "intercept", "r2"):
+        stated = d["regression"].get(key)
+        if stated is None or abs(float(stated) - out["regression"][key]) > 0.01:
+            bad.append(f"regression {key}: says {stated}, recomputed {out['regression'][key]}")
+    if bad:
+        errors.append("numbers do not match comps.py (regenerate, don't edit by hand): "
+                      + "; ".join(bad[:5]) + (f" (+{len(bad) - 5} more)" if len(bad) > 5 else ""))
+
+    rng = d["range"]
+    lo, hi = float(rng["low"]), float(rng["high"])
+    if rng.get("basis") == "regression_band":
+        ref = out["regression_band"]
+        if abs(lo - ref["low"]) > VALUE_TOL * abs(ref["low"]) or abs(hi - ref["high"]) > VALUE_TOL * abs(ref["high"]):
+            errors.append(f"range {lo:,.2f}-{hi:,.2f} is not the regression band "
+                          f"{ref['low']:,.2f}-{ref['high']:,.2f}")
+    elif rng.get("basis") == "methods":
+        vals = list(out["methods"].values())
+        if lo < min(vals) * (1 - VALUE_TOL) or hi > max(vals) * (1 + VALUE_TOL):
+            errors.append(f"range {lo:,.2f}-{hi:,.2f} goes beyond the methods' values "
+                          f"{min(vals):,.2f}-{max(vals):,.2f}")
+    else:
+        errors.append("range.basis must be 'regression_band' or 'methods'")
+    if lo > hi:
+        errors.append("range low is above range high")
+
+    # --- Reading the result ---
+    reg = out["regression"]
+    if reg["r2"] < WEAK_FIT_R2:
+        flags.append(f"growth-adjusted fit is weak (r2 {reg['r2']:.2f}): the rule of 40 explains "
+                     f"little of the multiples here, so lean on the plain medians and say so")
+    scores = [m["rule_of_40"] for m in out["peers"].values()]
+    if not min(scores) <= reg["target_rule_of_40"] <= max(scores):
+        flags.append(f"{d['company']}'s rule of 40 score {pct(reg['target_rule_of_40'])} is outside "
+                     f"the peers' {pct(min(scores))}-{pct(max(scores))}: the regression is "
+                     f"extrapolating")
+    multiples = [m["ev_revenue"] for m in out["peers"].values()]
+    if min(multiples) > 0 and max(multiples) / min(multiples) > MULTIPLE_SPREAD_FLAG:
+        flags.append(f"peer EV/revenue ranges {min(multiples):.1f}x-{max(multiples):.1f}x: "
+                     f"the peers may not be comparable; check the selection")
+    price = num(d["price"])
+    if not lo <= price <= hi:
+        flags.append(f"today's price {price:,.2f} is outside the peer range {lo:,.2f}-{hi:,.2f}: "
+                     f"say why the market prices {d['company']} differently from its peers")
     return errors, flags
 
 

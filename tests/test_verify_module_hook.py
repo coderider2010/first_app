@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 from test_sniff_test import CLEAN
-from test_valuation_check import CLEAN as CLEAN_VALUATION, CLEAN_DCF
+from test_valuation_check import CLEAN as CLEAN_VALUATION, CLEAN_DCF, CLEAN_COMPS
 
 HOOK = Path(__file__).resolve().parents[1] / ".claude" / "hooks" / "verify_module.py"
 MODULE = "engagements/acme/modules/us-pet-insurance"
@@ -90,6 +90,11 @@ class Allowed(GateTest):
     def test_clean_scenario_module(self):
         self.write("memo.md", "# Two stories: $X and $Y per share")
         self.write("valuation.json", CLEAN_DCF)
+        self.assertAllowed(self.stop())
+
+    def test_clean_comps_module(self):
+        self.write("memo.md", "# Peers imply $X-$Y per share")
+        self.write("valuation.json", CLEAN_COMPS)
         self.assertAllowed(self.stop())
 
     def test_escalation_is_the_escape_valve(self):

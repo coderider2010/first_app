@@ -2,7 +2,8 @@
 """Forward DCF: value per share for each named scenario, plus a sensitivity table.
 
 Usage:
-    python scripts/dcf.py valuation.json
+    python scripts/dcf.py valuation.json            print the results
+    python scripts/dcf.py valuation.json --write    also save them into valuation.json
 
 Reads a valuation.json of type "dcf" (format in
 implied-expectations/scripts/valuation_check.py) and prints JSON to stdout:
@@ -64,11 +65,12 @@ def yearly(d, sc):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(json.dumps({"error": "usage: dcf.py valuation.json"}))
+    args = [a for a in sys.argv[1:] if a != "--write"]
+    if len(args) != 1:
+        print(json.dumps({"error": "usage: dcf.py valuation.json [--write]"}))
         sys.exit(1)
     try:
-        with open(sys.argv[1]) as f:
+        with open(args[0]) as f:
             d = json.load(f)
         wacc, cap = val(d["discount_rate"]), d["terminal_growth"].get("cap")
         out = {"scenarios": {}, "sensitivity": []}
@@ -84,6 +86,12 @@ def main():
                         "scenario": name, "wacc": w, "terminal_growth": g,
                         "value_per_share": value_scenario(d, sc, w, g)["value_per_share"],
                     })
+        if "--write" in sys.argv:
+            for name, res in out["scenarios"].items():
+                d["scenarios"][name].update({k: v for k, v in res.items() if k != "years"})
+            d["sensitivity"] = out["sensitivity"]
+            with open(args[0], "w") as f:
+                json.dump(d, f, indent=2)
     except (OSError, json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
         print(json.dumps({"error": f"{type(e).__name__}: {e}"}))
         sys.exit(1)

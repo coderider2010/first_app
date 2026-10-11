@@ -299,9 +299,8 @@ class GrowthPaths(unittest.TestCase):
             model.growth_path([0.1] * 9, 10)
 
 
-class ScenarioChecker(unittest.TestCase):
-    def broken(self):
-        return copy.deepcopy(CLEAN_DCF)
+class CheckerBase(unittest.TestCase):
+    """Helpers shared by the checker test classes (no tests of its own)."""
 
     def check(self, d):
         code, out = run(d)
@@ -316,6 +315,12 @@ class ScenarioChecker(unittest.TestCase):
     def assertFlag(self, d, fragment):
         out = self.check(d)
         self.assertTrue(any(fragment in f for f in out["flags"]), out["flags"])
+
+
+
+class ScenarioChecker(CheckerBase):
+    def broken(self):
+        return copy.deepcopy(CLEAN_DCF)
 
     def test_clean_passes(self):
         out = self.check(CLEAN_DCF)
@@ -406,3 +411,190 @@ class ScenarioChecker(unittest.TestCase):
         code, out = run(d)
         self.assertEqual(code, 1)
         self.assertIn("unknown type", out["error"])
+
+
+# --- Peer comparison (type "comps", module 4) ---
+
+sys.path.insert(0, os.path.join(SCRIPTS, "..", "..", "benchmarking", "scripts"))
+import comps  # noqa: E402
+
+COMPS_GENERATOR = os.path.join(SCRIPTS, "..", "..", "benchmarking", "scripts", "comps.py")
+
+
+def peer(price, shares, revenue, growth, fcf, cash=1e9, debt=0.0):
+    return {"price": src(price, date="2026-10-09"), "shares": src(shares),
+            "cash": src(cash), "debt": src(debt), "revenue_ttm": src(revenue),
+            "revenue_growth": src(growth), "fcf_after_sbc_ttm": src(fcf)}
+
+
+def clean_comps():
+    """Five peers whose multiples rise with the rule of 40, the target inside their range."""
+    d = {k: copy.deepcopy(CLEAN[k]) for k in
+         ("company", "as_of", "currency", "price", "shares", "debt", "cash")}
+    d["type"] = "comps"
+    d["target"] = {"revenue_ttm": src(3.4e9), "revenue_growth": src(0.18),
+                   "fcf_after_sbc_ttm": src(0.06 * 3.4e9)}
+    d["selection_rules"] = ["B2B subscription software", "revenue $1-15B", "growth 8-25%"]
+    d["peers"] = {
+        "P1": peer(100, 100e6, 5e9, 0.08, 0.15 * 5e9),
+        "P2": peer(150, 100e6, 4e9, 0.12, 0.18 * 4e9),
+        "P3": peer(200, 100e6, 4e9, 0.16, 0.20 * 4e9),
+        "P4": peer(260, 100e6, 3e9, 0.20, 0.22 * 3e9),
+        "P5": peer(120, 100e6, 3e9, 0.10, 0.12 * 3e9),
+    }
+    d["candidates"] = [{"name": n, "included": True, "reason": "fits all rules"} for n in d["peers"]]
+    d["candidates"].append({"name": "Too Small Inc", "included": False, "reason": "revenue $0.4B"})
+    out = comps.run(d)
+    for name, m in out["peers"].items():
+        d["peers"][name].update({k: m[k] for k in ("enterprise_value", "ev_revenue", "rule_of_40")})
+    d["methods"] = out["methods"]
+    d["regression"] = {k: out["regression"][k] for k in ("slope", "intercept", "r2", "residual_spread")}
+    d["range"] = dict(out["regression_band"], basis="regression_band")
+    mid = (d["range"]["low"] + d["range"]["high"]) / 2
+    d["price"]["value"] = round(mid, 2)
+    return d
+
+
+CLEAN_COMPS = clean_comps()
+
+
+class CompsModel(unittest.TestCase):
+    def test_perfect_line_is_recovered(self):
+        reg = comps.fit([0.1, 0.2, 0.3, 0.4], [3.0, 5.0, 7.0, 9.0])
+        self.assertAlmostEqual(reg["slope"], 20.0)
+        self.assertAlmostEqual(reg["intercept"], 1.0)
+        self.assertAlmostEqual(reg["r2"], 1.0)
+        self.assertAlmostEqual(reg["residual_spread"], 0.0)
+
+    def test_peer_ev_and_multiples(self):
+        m = comps.peer_metrics(peer(100, 10e6, 500e6, 0.2, 50e6, cash=200e6, debt=100e6))
+        self.assertEqual(m["enterprise_value"], 900_000_000)  # 1,000M + 100M - 200M
+        self.assertAlmostEqual(m["ev_revenue"], 1.8)
+        self.assertAlmostEqual(m["ev_fcf"], 18.0)
+        self.assertAlmostEqual(m["rule_of_40"], 0.30)  # 20% growth + 10% margin
+
+    def test_negative_fcf_has_no_ev_fcf(self):
+        self.assertIsNone(comps.peer_metrics(peer(100, 10e6, 500e6, 0.2, -5e6))["ev_fcf"])
+
+    def test_cli_matches_library(self):
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+            json.dump(CLEAN_COMPS, f)
+            path = f.name
+        try:
+            proc = subprocess.run([sys.executable, COMPS_GENERATOR, path], capture_output=True, text=True)
+        finally:
+            os.unlink(path)
+        self.assertEqual(json.loads(proc.stdout)["methods"], CLEAN_COMPS["methods"])
+
+
+class CompsChecker(CheckerBase):
+    def broken(self):
+        return copy.deepcopy(CLEAN_COMPS)
+
+    def test_clean_passes(self):
+        self.assertEqual(self.check(CLEAN_COMPS)["status"], "pass", self.check(CLEAN_COMPS))
+
+    def test_no_selection_rules(self):
+        d = self.broken()
+        d["selection_rules"] = []
+        self.assertError(d, "no selection_rules")
+
+    def test_exclusion_without_reason(self):
+        d = self.broken()
+        d["candidates"][-1]["reason"] = ""
+        self.assertError(d, "excluded without a reason")
+
+    def test_peer_not_from_candidates(self):
+        d = self.broken()
+        d["peers"]["Sneaky"] = copy.deepcopy(d["peers"]["P1"])
+        self.assertError(d, "do not match the candidates")
+
+    def test_too_few_peers(self):
+        d = self.broken()
+        for n in ("P3", "P4", "P5"):
+            del d["peers"][n]
+        d["candidates"] = [c for c in d["candidates"] if c["name"] in d["peers"] or not c["included"]]
+        self.assertError(d, "need at least 3")
+
+    def test_unsourced_peer_input(self):
+        d = self.broken()
+        d["peers"]["P2"]["revenue_ttm"]["source"] = ""
+        self.assertError(d, "P2: revenue_ttm has no source")
+
+    def test_peer_multiple_edited(self):
+        d = self.broken()
+        d["peers"]["P3"]["ev_revenue"] = 9.9
+        self.assertError(d, "do not match comps.py")
+
+    def test_method_value_edited(self):
+        d = self.broken()
+        d["methods"]["median_ev_revenue"] *= 1.2
+        self.assertError(d, "do not match comps.py")
+
+    def test_range_not_the_band(self):
+        d = self.broken()
+        d["range"]["high"] *= 1.3
+        self.assertError(d, "is not the regression band")
+
+    def test_range_beyond_methods(self):
+        d = self.broken()
+        vals = d["methods"].values()
+        d["range"] = {"low": min(vals), "high": max(vals) * 1.5, "basis": "methods"}
+        self.assertError(d, "beyond the methods")
+
+    def test_stale_peer_price(self):
+        d = self.broken()
+        d["peers"]["P1"]["price"]["date"] = "2026-08-01"
+        self.assertFlag(d, "P1: price dated")
+
+    def test_target_outside_peer_scores(self):
+        d = self.broken()
+        d["target"]["revenue_growth"]["value"] = 0.60
+        out = comps.run(d)
+        d["methods"] = out["methods"]
+        d["range"] = dict(out["regression_band"], basis="regression_band")
+        self.assertFlag(d, "extrapolating")
+
+    def test_price_outside_peer_range(self):
+        d = self.broken()
+        d["price"]["value"] = 5.0
+        self.assertFlag(d, "outside the peer range")
+
+    def test_dcf_inputs_not_required(self):
+        self.assertNotIn("discount_rate", CLEAN_COMPS)
+
+
+class WriteBack(unittest.TestCase):
+    """--write saves generator output into valuation.json, which then passes the checker."""
+
+    def roundtrip(self, generator, d, strip):
+        d = copy.deepcopy(d)
+        strip(d)
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+            json.dump(d, f)
+            path = f.name
+        try:
+            subprocess.run([sys.executable, generator, path, "--write"], check=True,
+                           capture_output=True, text=True)
+            with open(path) as f:
+                written = json.load(f)
+        finally:
+            os.unlink(path)
+        code, out = run(written)
+        self.assertEqual((code, out["status"]), (0, "pass"), out)
+
+    def test_comps_write(self):
+        def strip(d):
+            for p in d["peers"].values():
+                for k in ("enterprise_value", "ev_revenue", "rule_of_40"):
+                    p.pop(k)
+            d["methods"], d["regression"] = {}, {}
+            del d["range"]
+        self.roundtrip(COMPS_GENERATOR, CLEAN_COMPS, strip)
+
+    def test_dcf_write(self):
+        def strip(d):
+            for sc in d["scenarios"].values():
+                sc["value_per_share"] = 0
+            d["sensitivity"] = []
+        self.roundtrip(DCF_GENERATOR, CLEAN_DCF, strip)
