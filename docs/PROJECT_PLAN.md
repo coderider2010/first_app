@@ -36,13 +36,13 @@ Each phase ends with something the user can see and test.
 **Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link. ✅ 2026-10-11
 
 ### Phase 3: The Analyst's curriculum for Project Hub
-- New skills: `implied-expectations` *(done)*, `valuation-dcf` *(open)*.
+- New skills: `implied-expectations` *(done)*, `valuation-dcf` *(done; module 3 run 2026-10-11)*.
 - Finish the stubs: `company-profile`, `benchmarking` *(open)*, and the closing four
   (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`)
   *(done)*.
 - A valuation checker (like `sniff_test.py`) that catches classic DCF errors, wired into
-  the gate. *(Done for reverse DCF: `valuation_check.py`; extend for module 3.)*
-- Skill fixes from the module 2 run (HANDOVER, "implied-expectations backlog"). *(Open.)*
+  the gate. *(Done: `valuation_check.py` handles reverse DCF and two-story DCF.)*
+- Skill fixes from the module 2 and 3 runs (HANDOVER backlogs). *(Module 2's mostly done; module 3's open.)*
 - Fixes from the first run: benchmark ranges come from the brief, not the Analyst, and
   methods must cite independent sources.
 - Add a fully diluted share count to Brief 02. *(Done.)*

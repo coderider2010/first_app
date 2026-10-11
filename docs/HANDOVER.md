@@ -216,6 +216,36 @@ Phase 3's "done when" is met: module 2 passed the gate on real filing data. Memo
 5. Name Damodaran's current ERP page (`New_Home_Page/home.htm`); `implpr.html` stops in 2016.
 6. Connector: `edgar_read_filing` missed an exact phrase in the 10-K (likely whitespace).
 
+## Module 03, two stories (2026-10-11)
+
+The Partner replaced bear/base/bull with two stories. Memo:
+`engagements/hubspot-value/modules/03-dcf-scenarios/memo.md`.
+
+- **Answer:** Grows up (growth fades 14% → 4%, margin after SBC to 25% by year 7) is worth
+  **$343.75**; Squeezed (12% falling to 3% by year 7, margin stalls at 12%) is worth
+  **$149.21**. The price of $228.30 sits 41% of the way toward Grows up (25–42% over the
+  two-week range). Margin, not growth, separates the stories (swap test: $116–156 vs $39–79).
+- **Working answer fails again:** the market accepts ~9% growth but doubts the margin.
+  Escalated; the Partner decides at the final checkpoint.
+- **Evidence that tells the stories apart:** net adds down (6,988 vs 9,724 a year
+  earlier), entry-price cuts, a new FY2025 risk factor on LLMs and vibe coding (verified
+  new vs FY2024); against that, seats and credits still growing and NRR ~102% (call,
+  unverified). What decides it: Q3 2026 NRR and net adds (early November), gross margin
+  vs AI costs, SBC % of revenue.
+- **Built:** `valuation-dcf` skill, `dcf.py`, growth paths in the shared model, and the
+  `dcf` type in `valuation_check.py` (two sourced evidence items per story, stories-too-
+  close and price-outside-both flags). 99 tests.
+
+### valuation-dcf backlog (from the Associate's notes)
+
+1. `dcf.py --write` to merge results into valuation.json (it wrote its own merge script).
+2. Print the price's position between stories and a swap test (most useful diagnostic).
+3. Optional margin parts (pre-SBC FCF margin, SBC %, capex %) so reinvestment is visible.
+4. Say that year 1 starts after the TTM base (H2 2026 + H1 2027), and note mid-year
+   discounting (~+5% to values).
+5. Evidence grade: require at least one A or B source per story.
+6. `dcf` type: optionally carry today's market EV for reference.
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.
