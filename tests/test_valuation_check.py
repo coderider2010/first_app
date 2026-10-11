@@ -53,7 +53,7 @@ def clean_valuation():
         ),
         "terminal_growth": src(0.03, cap=0.04, cap_source="test fixture"),
         "horizon_years": 10,
-        "peer_margins": {"Peer A": src(0.30), "Peer B": src(0.25)},
+        "peer_margins": {"Peer A": src(0.30), "Peer B": src(0.18)},
     }
     d["grid"] = model.build_grid(d, [0.08, 0.12, 0.16])
     base = next(c for c in d["grid"] if c["growth"] == 0.12 and c["wacc"] == 0.10)
@@ -216,6 +216,11 @@ class Checker(unittest.TestCase):
         d["peer_margins"] = {"Peer A": src(0.10)}
         self.assertFlag(d, "above every peer")
 
+    def test_margin_below_every_peer(self):
+        d = self.broken()
+        d["peer_margins"] = {"Peer A": src(0.40)}
+        self.assertFlag(d, "below every peer")
+
     def test_no_peers_flagged(self):
         d = self.broken()
         del d["peer_margins"]
@@ -231,3 +236,173 @@ class Checker(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# --- Forward DCF with named scenarios (type "dcf", module 3) ---
+
+sys.path.insert(0, os.path.join(SCRIPTS, "..", "..", "valuation-dcf", "scripts"))
+import dcf  # noqa: E402
+
+DCF_GENERATOR = os.path.join(SCRIPTS, "..", "..", "valuation-dcf", "scripts", "dcf.py")
+
+
+def clean_scenarios():
+    """Two stories that pass every check, with numbers from dcf.py."""
+    d = {k: copy.deepcopy(v) for k, v in CLEAN.items()
+         if k not in ("equity_value", "enterprise_value", "grid", "headline")}
+    d["type"] = "dcf"
+    d["price"]["value"] = 250.0  # between the two stories
+    d["scenarios"] = {
+        "grows_up": {
+            "narrative": "Matures like its peers",
+            "growth": {"start": 0.14, "end": 0.05}, "target_margin": 0.25,
+            "evidence": [{"claim": "peer margins 18-30%", "source": "10-Ks"},
+                         {"claim": "guidance 14%", "source": "8-K"}],
+        },
+        "squeezed": {
+            "narrative": "AI pressure stalls margins",
+            "growth": {"start": 0.10, "end": 0.03}, "target_margin": 0.10,
+            "evidence": [{"claim": "seat counts falling", "source": "10-Q"},
+                         {"claim": "pricing pressure", "source": "earnings call"}],
+        },
+    }
+    for name, sc in d["scenarios"].items():
+        sc.update(dcf.value_scenario(d, sc))
+    d["sensitivity"] = [
+        {"scenario": n, "wacc": w, "terminal_growth": 0.03,
+         "value_per_share": dcf.value_scenario(d, sc, w, 0.03)["value_per_share"]}
+        for n, sc in d["scenarios"].items() for w in (0.09, 0.10, 0.11)
+    ]
+    return d
+
+
+CLEAN_DCF = clean_scenarios()
+
+
+class GrowthPaths(unittest.TestCase):
+    def test_constant_fade_and_list_agree(self):
+        args = (3e9, 0.05)
+        const = model.enterprise_value(*args, 0.1, 0.25, 0.10, 0.03)
+        fade = model.enterprise_value(*args, {"start": 0.1, "end": 0.1}, 0.25, 0.10, 0.03)
+        lst = model.enterprise_value(*args, [0.1] * 10, 0.25, 0.10, 0.03)
+        self.assertAlmostEqual(const, fade, places=3)
+        self.assertAlmostEqual(const, lst, places=3)
+
+    def test_fade_is_straight_line(self):
+        path = model.growth_path({"start": 0.14, "end": 0.05}, 10)
+        self.assertAlmostEqual(path[0], 0.14)
+        self.assertAlmostEqual(path[-1], 0.05)
+        self.assertAlmostEqual(path[1] - path[0], path[-1] - path[-2])
+
+    def test_wrong_length_path_rejected(self):
+        with self.assertRaises(ValueError):
+            model.growth_path([0.1] * 9, 10)
+
+
+class ScenarioChecker(unittest.TestCase):
+    def broken(self):
+        return copy.deepcopy(CLEAN_DCF)
+
+    def check(self, d):
+        code, out = run(d)
+        self.assertEqual(code, 0, out)
+        return out
+
+    def assertError(self, d, fragment):
+        out = self.check(d)
+        self.assertEqual(out["status"], "errors_found", out)
+        self.assertTrue(any(fragment in e for e in out["errors"]), out["errors"])
+
+    def assertFlag(self, d, fragment):
+        out = self.check(d)
+        self.assertTrue(any(fragment in f for f in out["flags"]), out["flags"])
+
+    def test_clean_passes(self):
+        out = self.check(CLEAN_DCF)
+        self.assertEqual(out["status"], "pass", out)
+
+    def test_generator_cli_matches_library(self):
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+            json.dump(CLEAN_DCF, f)
+            path = f.name
+        try:
+            proc = subprocess.run([sys.executable, DCF_GENERATOR, path], capture_output=True, text=True)
+        finally:
+            os.unlink(path)
+        out = json.loads(proc.stdout)
+        for name, sc in CLEAN_DCF["scenarios"].items():
+            self.assertEqual(out["scenarios"][name]["value_per_share"], sc["value_per_share"])
+            self.assertEqual(len(out["scenarios"][name]["years"]), 10)
+        # 3 discount rates x 3 terminal rates (all under the 4% cap) x 2 scenarios
+        self.assertEqual(len(out["sensitivity"]), 18)
+
+    def test_value_edited_by_hand(self):
+        d = self.broken()
+        d["scenarios"]["grows_up"]["value_per_share"] *= 1.05
+        self.assertError(d, "does not match the model")
+
+    def test_one_scenario_is_not_a_range(self):
+        d = self.broken()
+        del d["scenarios"]["squeezed"]
+        d["sensitivity"] = [c for c in d["sensitivity"] if c["scenario"] == "grows_up"]
+        self.assertError(d, "at least 2 scenarios")
+
+    def test_story_without_evidence(self):
+        d = self.broken()
+        d["scenarios"]["squeezed"]["evidence"] = [{"claim": "AI", "source": ""}]
+        self.assertError(d, "sourced evidence items")
+
+    def test_story_without_narrative(self):
+        d = self.broken()
+        d["scenarios"]["squeezed"]["narrative"] = ""
+        self.assertError(d, "no narrative")
+
+    def test_scenario_terminal_growth_over_cap(self):
+        d = self.broken()
+        d["scenarios"]["grows_up"]["terminal_growth"] = 0.05
+        self.assertError(d, "exceeds the cap")
+
+    def test_sensitivity_cell_edited(self):
+        d = self.broken()
+        d["sensitivity"][0]["value_per_share"] += 20
+        self.assertError(d, "sensitivity cells do not match")
+
+    def test_sensitivity_missing_rate(self):
+        d = self.broken()
+        d["sensitivity"] = [c for c in d["sensitivity"] if c["wacc"] != 0.11]
+        self.assertError(d, "no discount rate 11.0%")
+
+    def test_price_outside_both_stories(self):
+        d = self.broken()
+        d["price"]["value"] = 10_000
+        self.assertFlag(d, "outside the scenario range")
+
+    def test_stories_too_close(self):
+        d = self.broken()
+        sq = d["scenarios"]["squeezed"]
+        sq.update(growth=copy.deepcopy(d["scenarios"]["grows_up"]["growth"]), target_margin=0.245)
+        sq.update(dcf.value_scenario(d, sq))
+        d["sensitivity"] = [
+            {"scenario": n, "wacc": w, "terminal_growth": 0.03,
+             "value_per_share": dcf.value_scenario(d, sc, w, 0.03)["value_per_share"]}
+            for n, sc in d["scenarios"].items() for w in (0.09, 0.10, 0.11)
+        ]
+        self.assertFlag(d, "don't differ enough")
+
+    def test_growth_not_converged(self):
+        d = self.broken()
+        sc = d["scenarios"]["grows_up"]
+        sc["growth"] = 0.14
+        sc.update(dcf.value_scenario(d, sc))
+        d["sensitivity"] = [c for c in d["sensitivity"] if c["scenario"] != "grows_up"] + [
+            {"scenario": "grows_up", "wacc": w, "terminal_growth": 0.03,
+             "value_per_share": dcf.value_scenario(d, sc, w, 0.03)["value_per_share"]}
+            for w in (0.09, 0.10, 0.11)]
+        self.assertFlag(d, "step down at the terminal year is abrupt")
+
+    def test_unknown_type_is_unusable(self):
+        d = self.broken()
+        d["type"] = "lbo"
+        code, out = run(d)
+        self.assertEqual(code, 1)
+        self.assertIn("unknown type", out["error"])

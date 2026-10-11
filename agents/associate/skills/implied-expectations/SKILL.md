@@ -20,8 +20,12 @@ as a grid, plus one headline point on it that you justify.
 
 1. **Enterprise value today.** Price (dated, cited) × **diluted** shares, plus debt, minus
    cash and investments. Diluted means basic shares plus RSUs, PSUs and in-the-money
-   options (treasury stock method), from the latest 10-Q equity note. Add other debt-like
-   items only if you can source them, as `other_ev_adjustments`.
+   options (treasury stock method), from the latest 10-Q equity note. If the 10-Q has no
+   award table, use in order: its anti-dilutive table plus dilutive shares (EPS note),
+   then the 10-K roll-forward, then an estimate (labelled). Add debt-like items only if
+   you can source them, as `other_ev_adjustments`: committed cash costs such as announced
+   restructuring, yes; operating leases, no (lease payments already reduce operating cash
+   flow, so adding them counts them twice).
 2. **Starting point.** Base revenue (usually TTM) and base FCF margin, both from the fact
    pack. Re-run any load-bearing fact-pack number before using it (charter rule).
 3. **Stock-based compensation.** Default: treat it as an expense. FCF = operating cash
@@ -31,7 +35,8 @@ as a grid, plus one headline point on it that you justify.
    the script's margins are pre-SBC; say so and model share growth separately.
 4. **Discount rate.** Derive it, don't assert it. CAPM: risk-free rate (10-year Treasury
    yield, dated and cited) + beta × equity risk premium (cite the source, such as
-   Damodaran's published implied ERP). With little or no debt, the cost of equity is the
+   Damodaran's current implied ERP on `pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm`;
+   the older `implpr.html` page stops in 2016). With little or no debt, the cost of equity is the
    discount rate. Cite every input. The grid always shows ±1 point.
 5. **Terminal growth.** At or below long-run nominal GDP growth, cited. It must sit well
    below the discount rate. No company outgrows the economy forever.
@@ -40,7 +45,10 @@ as a grid, plus one headline point on it that you justify.
    ```
    python3 agents/associate/skills/implied-expectations/scripts/reverse_dcf.py valuation.json
    ```
-   Paste its `grid` into `valuation.json`. **Never compute or edit grid cells by hand**:
+   Paste its `grid` into `valuation.json`. The grid uses constant growth; for a fading
+   path (`{"start", "end"}`) use `valuation-dcf/scripts/dcf.py` on a one-off copy, and
+   state the equivalent constant rate. End-of-year discounting is used throughout;
+   mid-year discounting would lower every implied margin by roughly 0.8 point. **Never compute or edit grid cells by hand**:
    the gate recomputes every cell and blocks any that don't reproduce today's EV.
 7. **Pick the headline.** Choose one growth rate and give a reason: for example, the
    consensus or guidance-anchored path. The headline margin is that row of the grid.

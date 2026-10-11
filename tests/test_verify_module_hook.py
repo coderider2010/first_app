@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 from test_sniff_test import CLEAN
-from test_valuation_check import CLEAN as CLEAN_VALUATION
+from test_valuation_check import CLEAN as CLEAN_VALUATION, CLEAN_DCF
 
 HOOK = Path(__file__).resolve().parents[1] / ".claude" / "hooks" / "verify_module.py"
 MODULE = "engagements/acme/modules/us-pet-insurance"
@@ -87,6 +87,11 @@ class Allowed(GateTest):
         verdict = json.loads((self.module / "valuation_result.json").read_text())
         self.assertEqual(verdict["status"], "pass")
 
+    def test_clean_scenario_module(self):
+        self.write("memo.md", "# Two stories: $X and $Y per share")
+        self.write("valuation.json", CLEAN_DCF)
+        self.assertAllowed(self.stop())
+
     def test_escalation_is_the_escape_valve(self):
         self.write("sizing.json", dict(CLEAN, estimate=9e9))
         self.write("escalation.md", "Sources conflict; need EM call.")
@@ -123,6 +128,13 @@ class Blocked(GateTest):
         bad["terminal_growth"]["value"] = 0.06
         self.write("valuation.json", bad)
         self.assertBlocked(self.stop(), "valuation_check.py reports errors in valuation.json")
+
+    def test_scenario_errors_block(self):
+        self.write("memo.md", "memo")
+        bad = copy.deepcopy(CLEAN_DCF)
+        bad["scenarios"]["grows_up"]["value_per_share"] *= 2
+        self.write("valuation.json", bad)
+        self.assertBlocked(self.stop(), "does not match the model")
 
     def test_unreadable_valuation_blocks(self):
         self.write("memo.md", "memo")

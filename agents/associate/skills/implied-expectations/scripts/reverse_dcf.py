@@ -11,6 +11,7 @@ value. Paste the grid into valuation.json and the memo; the gate recomputes it.
 
 The model (deliberately simple, so every step can be checked by hand):
     revenue_t = base_revenue * (1 + g)^t                    t = 1..N
+                (or, for a growth path g_1..g_N: revenue_t = revenue_{t-1} * (1 + g_t))
     margin_t  = base_margin + (target_margin - base_margin) * min(t / ramp, 1)
     fcf_t     = revenue_t * margin_t
     terminal  = fcf_N * (1 + g_T) / (r - g_T)               valued at the end of year N
@@ -29,16 +30,37 @@ import json
 import sys
 
 
+def growth_path(growth, horizon):
+    """Yearly growth rates g_1..g_N from a number, a {"start", "end"} fade, or a list.
+
+    A fade moves in a straight line from start (year 1) to end (year N).
+    """
+    if isinstance(growth, dict):
+        start, end = float(growth["start"]), float(growth["end"])
+        if horizon == 1:
+            return [start]
+        return [start + (end - start) * (t - 1) / (horizon - 1) for t in range(1, horizon + 1)]
+    if isinstance(growth, (list, tuple)):
+        if len(growth) != horizon:
+            raise ValueError(f"growth path has {len(growth)} years; horizon is {horizon}")
+        return [float(g) for g in growth]
+    return [float(growth)] * horizon
+
+
 def enterprise_value(base_revenue, base_margin, growth, target_margin, wacc,
                      terminal_growth, horizon=10, ramp=None):
-    """DCF enterprise value under the model in the module docstring."""
+    """DCF enterprise value under the model in the module docstring.
+
+    growth is a constant rate, a {"start", "end"} fade, or a list of N yearly rates.
+    """
     if wacc <= terminal_growth:
         raise ValueError("discount rate must exceed terminal growth")
     ramp = ramp or horizon
-    ev, fcf = 0.0, 0.0
-    for t in range(1, horizon + 1):
+    ev, fcf, revenue = 0.0, 0.0, base_revenue
+    for t, g in enumerate(growth_path(growth, horizon), start=1):
         margin = base_margin + (target_margin - base_margin) * min(t / ramp, 1.0)
-        fcf = base_revenue * (1 + growth) ** t * margin
+        revenue *= 1 + g
+        fcf = revenue * margin
         ev += fcf / (1 + wacc) ** t
     terminal = fcf * (1 + terminal_growth) / (wacc - terminal_growth)
     return ev + terminal / (1 + wacc) ** horizon
@@ -51,7 +73,10 @@ def terminal_share(base_revenue, base_margin, growth, target_margin, wacc,
                              terminal_growth, horizon, ramp)
     ramp = ramp or horizon
     margin_n = base_margin + (target_margin - base_margin) * min(horizon / ramp, 1.0)
-    fcf_n = base_revenue * (1 + growth) ** horizon * margin_n
+    revenue_n = base_revenue
+    for g in growth_path(growth, horizon):
+        revenue_n *= 1 + g
+    fcf_n = revenue_n * margin_n
     terminal = fcf_n * (1 + terminal_growth) / (wacc - terminal_growth) / (1 + wacc) ** horizon
     return terminal / total if total else float("nan")
 
