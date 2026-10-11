@@ -248,8 +248,9 @@ The Partner replaced bear/base/bull with two stories. Memo:
 
 ## Module 04, peer comparison, and the draft answer (2026-10-11)
 
-All four modules are done. The draft final answer is `docs/engagements/hubspot-value/answer.md`,
-**awaiting Partner approval** (checkpoint 2).
+All four modules are done. The final answer is `docs/engagements/hubspot-value/answer.md`,
+**approved by the Partner on 2026-10-11** (checkpoint 2). Project Hub is complete; next is
+Phase 4 (the EM as an agent), which should reproduce this engagement end to end.
 
 - **Module 04:** EM-set rules applied to 20 candidates; 7 peers pass (Autodesk, Workday,
   ServiceNow, DocuSign, Box, Twilio, Okta). On 52.45M shares: $161 (EV/FCF after SBC)

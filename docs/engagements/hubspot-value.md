@@ -1,6 +1,6 @@
 # Engagement: Project Hub (what is HubSpot worth?)
 
-**Status:** Plan approved by Partner 2026-10-10 · **Started:** 2026-10-10 · **Partner:** the user
+**Status:** Complete; answer approved by Partner 2026-10-11 ([answer](hubspot-value/answer.md)) · Plan approved 2026-10-10 · **Started:** 2026-10-10 · **Partner:** the user
 
 ## The client and the question
 
@@ -59,4 +59,4 @@ the Analyst explains why rather than averaging them.
 ## Partner checkpoints (the user)
 
 1. ~~Approve this plan and the four briefs.~~ Done 2026-10-10.
-2. Approve the final answer (value per share under each story).
+2. ~~Approve the final answer (value per share under each story).~~ Done 2026-10-11.

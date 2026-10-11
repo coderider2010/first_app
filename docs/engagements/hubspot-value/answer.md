@@ -1,6 +1,6 @@
 # Project Hub: the answer
 
-**Status:** DRAFT, awaiting Partner approval (checkpoint 2) · **As of:** 2026-10-11 ·
+**Status:** APPROVED by the Partner, 2026-10-11 (checkpoint 2) · **As of:** 2026-10-11 ·
 **Price:** $228.30 (NYSE close, 2026-10-09)
 
 ## What is HubSpot worth per share?
