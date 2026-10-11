@@ -25,10 +25,10 @@ Each phase ends with something the user can see and test.
 **Done when:** the user approves the engagement document and the four briefs. ✅ 2026-10-10
 
 ### Phase 2: Data access (free sources)
-- Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data), plus
-  HubSpot's investor relations site.
+- Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data). *(Done.)*
 - An EDGAR connector (MCP server) that fetches filings and XBRL facts and returns them with
-  source links.
+  source links. *(Built: `connectors/edgar/`.)*
+- `SEC_USER_AGENT` set in the environment, then the Analyst tested in a new session.
 
 **Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link.
 

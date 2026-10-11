@@ -124,6 +124,27 @@ from a buy-side deal question to keep it simple), the user is the only user, dat
 comes from free sources only, and the runtime is the Claude Agent SDK. Work goes top-down:
 engagement first, then the Analyst's workstream, then how the Analyst does the work.
 
+## EDGAR connector (Phase 2, built 2026-10-11)
+
+`connectors/edgar/` is an MCP server (`edgar_mcp`, MCP Python SDK 2.x, registered in
+`.mcp.json` as `edgar`) with five read-only tools: `edgar_find_company`,
+`edgar_list_filings`, `edgar_search_concepts`, `edgar_get_fact` and `edgar_read_filing`.
+Every value carries its filing and a sec.gov link.
+
+- **Setup:** `connectors/edgar/run.sh` creates `.venv/` on first launch. The SEC requires a
+  contact in the User-Agent, read from the `SEC_USER_AGENT` environment variable (set in the
+  cloud environment's settings, not in the repo). Without it the tools return an error that
+  asks for it.
+- **Design choice:** XBRL repeats each period in several filings, and a row's `fy` is the
+  *filing's* year. `edgar_get_fact` keys on period dates, keeps the latest filing's value,
+  and flags `restated` when filings disagree.
+- **MCP 2.x notes:** `FastMCP` is now `MCPServer` (`mcp.server.mcpserver`). Only `ToolError`
+  messages reach the agent; other exceptions are hidden as "Error executing tool".
+- **Verified:** HubSpot FY2025 revenue $3,131,266,000 (10-K filed 2026-02-11). Tests:
+  `tests/test_edgar_client.py` (offline).
+- `ir.hubspot.com` returns 403 (bot protection on the site). Earnings releases are on
+  EDGAR as 8-K exhibits, so this is not a gap.
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.

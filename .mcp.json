@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "edgar": {
+      "command": "bash",
+      "args": ["connectors/edgar/run.sh"],
+      "env": {
+        "SEC_USER_AGENT": "${SEC_USER_AGENT:-}"
+      }
+    }
+  }
+}
