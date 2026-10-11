@@ -246,6 +246,39 @@ The Partner replaced bear/base/bull with two stories. Memo:
 5. Evidence grade: require at least one A or B source per story.
 6. `dcf` type: optionally carry today's market EV for reference.
 
+## Module 04, peer comparison, and the draft answer (2026-10-11)
+
+All four modules are done. The draft final answer is `docs/engagements/hubspot-value/answer.md`,
+**awaiting Partner approval** (checkpoint 2).
+
+- **Module 04:** EM-set rules applied to 20 candidates; 7 peers pass (Autodesk, Workday,
+  ServiceNow, DocuSign, Box, Twilio, Okta). On 52.45M shares: $161 (EV/FCF after SBC)
+  to $438 (EV/revenue; $324 without Okta and Twilio). Rule-of-40 fit r² 0.05, so the
+  range uses the plain medians. HubSpot's FCF gap is before SBC (19% vs 31%), not SBC.
+- **The answer:** about $150–$345 per share, hinging on cash conversion; $228 prices in
+  roughly a 40% chance HubSpot matures. The DCF and peers, built independently, agree on
+  that hinge. The working answer did not survive.
+- **EM errors to learn from:** (1) a line on Module 2's result in the engagement doc was
+  readable by Module 4 (independent modules should be pointed only at the fact pack);
+  (2) Module 4 used 50.6M shares vs 52.45M elsewhere (the fact base, Phase 5, fixes this).
+- **Skill loading:** `Skill("benchmarking")` returned "Unknown skill" because associate
+  skills live in `agents/associate/skills/`, not a registered skills folder; agents read
+  SKILL.md directly. Fix when packaging (Phase 6 or plugin work).
+
+### benchmarking backlog (from the Associate's notes)
+
+1. One rule for the range when r² < 0.3 (skill and checker flag disagree), a
+   `--basis methods` option, and a range note field.
+2. Compute quartiles and pre-SBC FCF margin and SBC % in `comps.py`.
+3. Define the share basis (period-end basic + treasury-stock dilution vs weighted
+   diluted) once, engagement-wide.
+4. Normalization cases: no capitalized-software line, preferred stock, equity-method
+   investments, post-balance-sheet acquisitions, splits, 10-K-latest TTM.
+5. Methods-basis check should require the range to equal named method values.
+6. Name a free daily-price source (stockanalysis.com and financialcontent.com work);
+   document dropping negative-FCF peers from EV/FCF; a field for forward revenue.
+7. Brief template: define "cloud software" for usage-based models (Twilio).
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.

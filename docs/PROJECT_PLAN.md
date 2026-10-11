@@ -37,7 +37,7 @@ Each phase ends with something the user can see and test.
 
 ### Phase 3: The Analyst's curriculum for Project Hub
 - New skills: `implied-expectations` *(done)*, `valuation-dcf` *(done; module 3 run 2026-10-11)*.
-- Finish the stubs: `company-profile`, `benchmarking` *(open)*, and the closing four
+- Finish the stubs: `company-profile` *(open)*, `benchmarking` *(done)*, and the closing four
   (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`)
   *(done)*.
 - A valuation checker (like `sniff_test.py`) that catches classic DCF errors, wired into
