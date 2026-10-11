@@ -14,6 +14,8 @@ Each module lives in `engagements/<engagement>/modules/<module-id>/`:
 - `brief.md`: the EM's module brief (input).
 - `memo.md`: your module memo (required to submit).
 - `sizing.json`: required for sizing modules, in the format `sniff_test.py` documents.
+- `valuation.json`: required for valuation modules, in the format `valuation_check.py`
+  (in `skills/implied-expectations/scripts/`) documents.
 - `escalation.md`: only if you must hand an unresolved problem to the EM.
 
 ## Submitting
@@ -22,8 +24,9 @@ End your final message with this line:
 
     MODULE: engagements/<engagement>/modules/<module-id>
 
-A gate then checks the folder. It blocks you from finishing if `memo.md` is missing or
-`sniff_test.py` reports errors in `sizing.json`, and it tells you what to fix. Flags do
+A gate then checks the folder. It blocks you from finishing if `memo.md` is missing,
+`sniff_test.py` reports errors in `sizing.json`, or `valuation_check.py` reports errors
+in `valuation.json`, and it tells you what to fix. Flags do
 not block, but the charter requires the memo to address every one. If you cannot fix
 an error, write `escalation.md` explaining why; that is the only way to stop with
 errors outstanding.

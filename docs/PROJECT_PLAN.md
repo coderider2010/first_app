@@ -28,20 +28,27 @@ Each phase ends with something the user can see and test.
 - Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data). *(Done.)*
 - An EDGAR connector (MCP server) that fetches filings and XBRL facts and returns them with
   source links. *(Built: `connectors/edgar/`.)*
-- `SEC_USER_AGENT` set in the environment, then the Analyst tested in a new session.
+- `SEC_USER_AGENT` set in the environment, then the Analyst tested in a new session. *(Done.)*
+- Brief 01 (fact pack) run by the Analyst on live EDGAR data and accepted by the EM.
+  *(Done: `engagements/hubspot-value/modules/01-fact-pack/memo.md`.)*
+- Connector fixes from that run (see HANDOVER, "Connector backlog"). *(Open; not blocking.)*
 
-**Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link.
+**Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link. ✅ 2026-10-11
 
 ### Phase 3: The Analyst's curriculum for Project Hub
-- New skills: `implied-expectations`, `valuation-dcf`.
-- Finish the stubs: `company-profile`, `benchmarking`, and the closing four
-  (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`).
+- New skills: `implied-expectations` *(done)*, `valuation-dcf` *(done; module 3 run 2026-10-11)*.
+- Finish the stubs: `company-profile` *(open)*, `benchmarking` *(done)*, and the closing four
+  (`module-memo`, `fact-base-contribution`, `confidentiality-check`, `source-vetting`)
+  *(done)*.
 - A valuation checker (like `sniff_test.py`) that catches classic DCF errors, wired into
-  the gate.
+  the gate. *(Done: `valuation_check.py` handles reverse DCF and two-story DCF.)*
+- Skill fixes from the module 2 and 3 runs (HANDOVER backlogs). *(Module 2's mostly done; module 3's open.)*
 - Fixes from the first run: benchmark ranges come from the brief, not the Analyst, and
   methods must cite independent sources.
+- Add a fully diluted share count to Brief 02. *(Done.)*
 
-**Done when:** module 2 ("what the price implies") passes the gate on real filing data.
+**Done when:** module 2 ("what the price implies") passes the gate on real filing data. ✅ 2026-10-11 (remaining items above are
+for modules 3 and 4)
 
 ### Phase 4: The Engagement Manager as an agent
 - The EM turns the key question into modules and briefs.

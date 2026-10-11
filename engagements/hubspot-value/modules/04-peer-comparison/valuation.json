@@ -1,0 +1,480 @@
+{
+  "type": "comps",
+  "company": "HubSpot, Inc.",
+  "as_of": "2026-10-11",
+  "currency": "USD",
+  "price": {
+    "value": 228.3,
+    "date": "2026-10-09",
+    "source": "HUBS closing price 2026-10-09, financialcontent.com/quote/NY:HUBS/historical (accessed 2026-10-11)"
+  },
+  "shares": {
+    "value": 50615000,
+    "basis": "diluted",
+    "source": "Weighted-average diluted shares Q2 2026, 50,615K (fact pack A4; re-run against 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm)"
+  },
+  "debt": {
+    "value": 0,
+    "source": "No debt at 2026-06-30: 2025 convertible notes settled June 2025; $500M revolver undrawn (fact pack A4; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm)"
+  },
+  "cash": {
+    "value": 1383208000,
+    "source": "Cash 958,314 + short-term investments 379,629 + long-term investments 45,265 ($K, 2026-06-30; fact pack A4, re-run against 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm)"
+  },
+  "target": {
+    "revenue_ttm": {
+      "value": 3448998000.0,
+      "source": "TTM Jun-26 = FY2025 3,131,266 + H1 2026 1,792,735 - H1 2025 1,475,003 ($K); fact pack A1; 10-K FY2025 https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm"
+    },
+    "revenue_growth": {
+      "value": 0.2111,
+      "source": "TTM Jun-26 3,448,998 / TTM Jun-25 2,847,902 ($K) - 1; fact pack A1"
+    },
+    "fcf_after_sbc_ttm": {
+      "value": 143725000.0,
+      "source": "TTM Jun-26: OCF 856,365 - PP&E 58,869 - capitalized software 139,059 - SBC 514,712 ($K); each re-run as FY2025 + H1 2026 - H1 2025 from EDGAR XBRL; fact pack A2/A3"
+    }
+  },
+  "selection_rules": [
+    "1. Files 10-K and 10-Q reports with the SEC (figures on EDGAR)",
+    "2. Most of its revenue is subscription or cloud software",
+    "3. It sells mainly to businesses",
+    "4. TTM revenue between $1B and $15B (HubSpot: $3.45B)",
+    "5. TTM revenue growth between 8% and 25% (HubSpot: 21%)",
+    "Applied to the EM's 20 named candidates only, on latest filings, before any price or multiple was collected"
+  ],
+  "candidates": [
+    {
+      "name": "Salesforce (CRM)",
+      "included": false,
+      "reason": "Rule 4: FY2026 (Jan-26) revenue $41.53B, above the $15B limit (10-K FY2026, crm-20260131.htm); TTM is higher still"
+    },
+    {
+      "name": "Adobe (ADBE)",
+      "included": false,
+      "reason": "Rule 4: FY2025 (Nov-25) revenue $23.77B, above the $15B limit (10-K FY2025, adbe-20251128.htm)"
+    },
+    {
+      "name": "Intuit (INTU)",
+      "included": false,
+      "reason": "Rule 4: FY2026 (Jul-26) revenue $21.45B, above the $15B limit (10-K FY2026, intu-20260731.htm)"
+    },
+    {
+      "name": "Autodesk",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 95% of H1 FY27 revenue (3,788/3,980); design software sold to businesses; TTM Jul-26 revenue $7.79B; growth 17.9%"
+    },
+    {
+      "name": "Workday",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription services ~93% of revenue; enterprise HR/finance cloud; TTM Jul-26 revenue $10.16B; growth 13.4%"
+    },
+    {
+      "name": "ServiceNow",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 97% of revenue; enterprise workflow cloud; TTM Jun-26 revenue $14.73B (below $15B); growth 22.2% (includes acquisitions closed in H1 2026)"
+    },
+    {
+      "name": "Atlassian (TEAM)",
+      "included": false,
+      "reason": "Rule 5: FY2026 (Jun-26, latest filing is the 10-K) revenue $6.57B grew 26.0% (vs $5.22B), above the 25% limit"
+    },
+    {
+      "name": "Datadog (DDOG)",
+      "included": false,
+      "reason": "Rule 5: TTM Jun-26 revenue $3.97B grew 31.5%, above the 25% limit"
+    },
+    {
+      "name": "Snowflake (SNOW)",
+      "included": false,
+      "reason": "Rule 5: TTM Jul-26 revenue $5.43B grew 32.0%, above the 25% limit"
+    },
+    {
+      "name": "Zoom (ZM)",
+      "included": false,
+      "reason": "Rule 5: TTM Jul-26 revenue $4.99B grew 5.0%, below the 8% floor"
+    },
+    {
+      "name": "DocuSign",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 98% of revenue; sells to businesses of all sizes; TTM Jul-26 revenue $3.36B; growth 8.6% (just above the 8% floor)"
+    },
+    {
+      "name": "Dropbox (DBX)",
+      "included": false,
+      "reason": "Rule 5: TTM Jun-26 revenue $2.53B grew -0.0% (2,531.6 vs 2,532.8), below the 8% floor"
+    },
+    {
+      "name": "Box",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; 'practically all' revenue is subscription; enterprise content management; TTM Jul-26 revenue $1.23B; growth 9.6%"
+    },
+    {
+      "name": "Twilio",
+      "included": true,
+      "reason": "Passes all, with a judgment on rule 2: 74% of FY2025 revenue is usage-based fees for its cloud platform and 26% subscription (10-K FY2025); the rule admits 'subscription or cloud software' and the candidate list includes other usage-priced clouds. Sells to businesses; TTM Jun-26 revenue $5.57B; growth 17.8%. Decided before any price or multiple was collected"
+    },
+    {
+      "name": "Klaviyo (KVYO)",
+      "included": false,
+      "reason": "Rule 5: TTM Jun-26 revenue $1.39B grew 28.9%, above the 25% limit"
+    },
+    {
+      "name": "Freshworks (FRSH)",
+      "included": false,
+      "reason": "Rule 4: TTM Jun-26 revenue $0.90B, below the $1B floor"
+    },
+    {
+      "name": "Sprout Social (SPT)",
+      "included": false,
+      "reason": "Rule 4: FY2025 revenue $457.5M; TTM Jun-26 is at most $702.9M (FY2025 457.5 + H1 2026 245.3 - H1 2025), below the $1B floor"
+    },
+    {
+      "name": "monday.com (MNDY)",
+      "included": false,
+      "reason": "Rule 1: files 20-F and 6-K as a foreign private issuer, not 10-K/10-Q (EDGAR filing list: 20-F for FY2025 filed 2026-03-13)"
+    },
+    {
+      "name": "Zscaler (ZS)",
+      "included": false,
+      "reason": "Rule 5: FY2026 (Jul-26, latest filing is the 10-K) revenue $3.35B grew 25.4%, above the 25% limit"
+    },
+    {
+      "name": "Okta",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 98% of revenue; workforce/customer identity sold to organizations; TTM Jul-26 revenue $3.07B; growth 11.2%"
+    }
+  ],
+  "peers": {
+    "ServiceNow": {
+      "price": {
+        "value": 140.86,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NY:NOW/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 1034334000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 2026 (post 5-for-1 split of 2025-12-17); 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "cash": {
+        "value": 6707000000,
+        "source": "cash 2,503 + marketable securities 2,161 + long-term marketable securities 2,043 ($M, 2026-06-30); excludes 2,073 strategic (private) investments; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "debt": {
+        "value": 7517000000,
+        "source": "short-term debt 2,082 + long-term debt 5,435 ($M carrying, 2026-06-30); 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "revenue_ttm": {
+        "value": 14732000000,
+        "source": "Derived ($M) 13,278 + 7,757 - 6,303. TTM to 2026-06-30 = FY2025 + H1 2026 - H1 2025; prior TTM = FY2024 + H1 2025 - H1 2024. 10-K FY2025 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "revenue_growth": {
+        "value": 0.2219,
+        "source": "Derived: TTM 14,732.0M / prior TTM 12,057.0M ($M 10,984 + 6,303 - 5,230) - 1. 10-Q Q2 2025 https://www.sec.gov/Archives/edgar/data/1373715/000137371525000276/now-20250630.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 2395000000,
+        "source": "Derived: OCF 5,308.0M - capex 728.0M - cap. software 0.0M - SBC 2,185.0M (TTM each; $M OCF 5,444 + 2,257 - 2,393; capex 868 + 255 - 395; SBC 1,955 + 1,199 - 969). no separate capitalized-software line; PP&E purchases only. 10-K FY2025 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 5308000000,
+        "capex_ppe": 728000000,
+        "capitalized_software": 0,
+        "sbc": 2185000000,
+        "fcf_before_sbc": 4580000000
+      },
+      "enterprise_value": 146506287240,
+      "ev_revenue": 9.945,
+      "ev_fcf": 61.17,
+      "fcf_margin": 0.1626,
+      "rule_of_40": 0.3845
+    },
+    "Autodesk": {
+      "price": {
+        "value": 235.35,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NQ:ADSK/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 211000000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 FY2027 (reported in millions); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "cash": {
+        "value": 4357000000,
+        "source": "cash 4,098 + marketable securities 57 + long-term marketable securities 202 ($M, 2026-07-31; 10-Q states $4.36B); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "debt": {
+        "value": 3478000000,
+        "source": "short-term debt (commercial paper) 994 + current notes 499 + long-term notes 1,985 ($M carrying, 2026-07-31). MaintainX ($3.6B, closed 2026-08-03) is after this balance sheet and outside TTM revenue; left out of both; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 7790000000,
+        "source": "Derived ($M) 7,206 + 3,980 - 3,396. TTM to 2026-07-31 = FY2026 (Jan) + H1 FY2027 - H1 FY2026; prior TTM = FY2025 + H1 FY2026 - (Q1 1,417 + Q2 1,505 FY2025). 10-K FY2026 https://www.sec.gov/Archives/edgar/data/769397/000076939726000015/adsk-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "revenue_growth": {
+        "value": 0.1794,
+        "source": "Derived: TTM 7,790.0M / prior TTM 6,605.0M ($M 6,131 + 3,396 - 2,922) - 1. 10-Qs Q1/Q2 FY2026 https://www.sec.gov/Archives/edgar/data/769397/000076939725000117/adsk-20250731.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 2133000000,
+        "source": "Derived: OCF 2,896.0M - capex 57.0M - cap. software 0.0M - SBC 706.0M (TTM each; $M OCF 2,452 + 1,468 - 1,024; capex 43 + 31 - 17; SBC 788 + 339 - 421). 'Capital expenditures' line; no separate capitalized-software line. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/769397/000076939726000015/adsk-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 2896000000,
+        "capex_ppe": 57000000,
+        "capitalized_software": 0,
+        "sbc": 706000000,
+        "fcf_before_sbc": 2839000000
+      },
+      "enterprise_value": 48779850000,
+      "ev_revenue": 6.262,
+      "ev_fcf": 22.87,
+      "fcf_margin": 0.2738,
+      "rule_of_40": 0.4532
+    },
+    "Workday": {
+      "price": {
+        "value": 186.59,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NQ:WDAY/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 246307000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 FY2027; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "cash": {
+        "value": 3403000000,
+        "source": "cash 661 + marketable securities 2,742 ($M, 2026-07-31); excludes 231 non-marketable equity; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "debt": {
+        "value": 2989000000,
+        "source": "debt current 999 + noncurrent 1,990 ($M carrying; $3.0B senior notes principal); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 10155000000,
+        "source": "Derived ($M) 9,552 + 5,191 - 4,588. TTM to 2026-07-31 = FY2026 (Jan) + H1 FY2027 - H1 FY2026; prior TTM = FY2025 + H1 FY2026 - H1 FY2025. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000014/wday-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "revenue_growth": {
+        "value": 0.1335,
+        "source": "Derived: TTM 10,155.0M / prior TTM 8,959.0M ($M 8,446 + 4,588 - 4,075) - 1. 10-Q Q2 FY2026 https://www.sec.gov/Archives/edgar/data/1327811/000132781125000184/wday-20250731.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 1198000000,
+        "source": "Derived: OCF 3,081.0M - capex 237.0M - cap. software 0.0M - SBC 1,646.0M (TTM each; $M OCF 2,939 + 1,215 - 1,073; capex 162 + 139 - 64; SBC 1,626 + 871 - 851). 'Capital expenditures' line; no separate capitalized-software line. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000014/wday-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 3081000000,
+        "capex_ppe": 237000000,
+        "capitalized_software": 0,
+        "sbc": 1646000000,
+        "fcf_before_sbc": 2844000000
+      },
+      "enterprise_value": 45544423130,
+      "ev_revenue": 4.485,
+      "ev_fcf": 38.02,
+      "fcf_margin": 0.118,
+      "rule_of_40": 0.2515
+    },
+    "DocuSign": {
+      "price": {
+        "value": 71.08,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NQ:DOCU/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 193117000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 FY2027; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "cash": {
+        "value": 973075000,
+        "source": "cash 528,161 + investments current 249,516 + noncurrent 195,398 ($K, 2026-07-31); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "debt": {
+        "value": 0,
+        "source": "no debt: $750M revolver undrawn at 2026-07-31; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 3361191000,
+        "source": "Derived ($K) 3,219,500 + 1,705,981 - 1,564,290. TTM to 2026-07-31 = FY2026 (Jan) + H1 FY2027 - H1 FY2026; prior TTM = FY2025 + H1 FY2026 - H1 FY2025. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000021/docu-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "revenue_growth": {
+        "value": 0.0859,
+        "source": "Derived: TTM 3,361.2M / prior TTM 3,095.4M ($K 2,976,739 + 1,564,290 - 1,445,667) - 1. 10-Q Q2 FY2026 https://www.sec.gov/Archives/edgar/data/1261333/000126133325000132/docu-20250731.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 592123000,
+        "source": "Derived: OCF 1,323.7M - capex 125.4M - cap. software 0.0M - SBC 606.2M (TTM each; $K OCF 1,165,007 + 656,234 - 497,512; capex 106,445 + 71,042 - 52,049; SBC 622,321 + 289,981 - 306,134). 'Purchases of property and equipment' includes capitalized internal-use software (10-Q Note 4). 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000021/docu-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 1323729000,
+        "capex_ppe": 125438000,
+        "capitalized_software": 0,
+        "sbc": 606168000,
+        "fcf_before_sbc": 1198291000
+      },
+      "enterprise_value": 12753681360,
+      "ev_revenue": 3.794,
+      "ev_fcf": 21.54,
+      "fcf_margin": 0.1762,
+      "rule_of_40": 0.2621
+    },
+    "Box": {
+      "price": {
+        "value": 36.39,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NY:BOX/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 139719000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 FY2027 (excludes convertible notes and preferred, anti-dilutive); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "cash": {
+        "value": 444136000,
+        "source": "cash 342,870 + short-term investments 101,266 ($K, 2026-07-31); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "debt": {
+        "value": 949633000,
+        "source": "2029 convertible notes 452,212 (carrying; $460M principal) + Series A convertible preferred 497,421 (carrying; $500M, debt-like senior claim) ($K, 2026-07-31); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 1234070000,
+        "source": "Derived ($K) 1,177,253 + 627,088 - 570,271. TTM to 2026-07-31 = FY2026 (Jan) + H1 FY2027 - H1 FY2026; prior TTM = FY2025 + H1 FY2026 - H1 FY2025. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1372612/000119312526098466/box-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "revenue_growth": {
+        "value": 0.0963,
+        "source": "Derived: TTM 1,234.1M / prior TTM 1,125.7M ($K 1,090,130 + 570,271 - 534,697) - 1. 10-Q Q2 FY2026 https://www.sec.gov/Archives/edgar/data/1372612/000095017025111701/box-20250731.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 113923000,
+        "source": "Derived: OCF 394.5M - capex 5.3M - cap. software 39.5M - SBC 235.7M (TTM each; $K OCF 356,450 + 211,036 - 173,023; capex 6,074 + 1,394 - 2,174; cap. software 35,174 + 20,822 - 16,490; SBC 233,716 + 117,676 - 115,652). PP&E purchases + 'Capitalized internal-use software costs' (cash flow statement lines). 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1372612/000119312526098466/box-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 394463000,
+        "capex_ppe": 5294000,
+        "capitalized_software": 39506000,
+        "sbc": 235740000,
+        "fcf_before_sbc": 349663000
+      },
+      "enterprise_value": 5589871410,
+      "ev_revenue": 4.53,
+      "ev_fcf": 49.07,
+      "fcf_margin": 0.0923,
+      "rule_of_40": 0.1886
+    },
+    "Okta": {
+      "price": {
+        "value": 232.13,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NQ:OKTA/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 178808000.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 FY2027; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "cash": {
+        "value": 2299000000,
+        "source": "cash 763 + short-term investments 1,536 ($M, 2026-07-31; 10-Q states $2,299M); 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "debt": {
+        "value": 0,
+        "source": "no debt: 2026 convertible notes ($350M) settled in cash 2026-06-15; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 3073000000,
+        "source": "Derived ($M) 2,919 + 1,570 - 1,416. TTM to 2026-07-31 = FY2026 (Jan) + H1 FY2027 - H1 FY2026; prior TTM = FY2025 + H1 FY2026 - H1 FY2025. 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000020/okta-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "revenue_growth": {
+        "value": 0.1122,
+        "source": "Derived: TTM 3,073.0M / prior TTM 2,763.0M ($M 2,610 + 1,416 - 1,263) - 1. 10-Q Q2 FY2026 https://www.sec.gov/Archives/edgar/data/1660134/000166013425000157/okta-20250731.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 458000000,
+        "source": "Derived: OCF 987.0M - capex 8.0M - cap. software 18.0M - SBC 503.0M (TTM each; $M OCF 884 + 511 - 408; capex 9 + 2 - 3; cap. software 12 + 11 - 5; SBC 544 + 231 - 272). PP&E purchases + 'Payments for software' (capitalized internal-use software). 10-K FY2026 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000020/okta-20260131.htm; 10-Q Q2 FY2027 https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 987000000,
+        "capex_ppe": 8000000,
+        "capitalized_software": 18000000,
+        "sbc": 503000000,
+        "fcf_before_sbc": 961000000
+      },
+      "enterprise_value": 39207701040,
+      "ev_revenue": 12.759,
+      "ev_fcf": 85.61,
+      "fcf_margin": 0.149,
+      "rule_of_40": 0.2612
+    },
+    "Twilio": {
+      "price": {
+        "value": 289.47,
+        "date": "2026-10-09",
+        "source": "Closing price 2026-10-09, financialcontent.com/quote/NY:TWLO/historical (accessed 2026-10-11)"
+      },
+      "shares": {
+        "value": 159708166.0,
+        "basis": "diluted",
+        "source": "weighted-average diluted shares Q2 2026; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "cash": {
+        "value": 2656330000,
+        "source": "cash 823,261 + short-term marketable securities 1,833,069 ($K, 2026-06-30); excludes 250,525 equity-method investment; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "debt": {
+        "value": 993162000,
+        "source": "2029 + 2031 senior notes, net carrying 993,162 ($K; $1.0B principal); 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "revenue_ttm": {
+        "value": 5572328000,
+        "source": "Derived ($K) 5,067,220 + 2,905,996 - 2,400,888. TTM to 2026-06-30 = FY2025 + H1 2026 - H1 2025; prior TTM = FY2024 + H1 2025 - H1 2024. H1 2025 SBC derived = 9M 2025 446,693 - Q3 2025 158,169. 10-K FY2025 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000021/twlo-20251231.htm; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "revenue_growth": {
+        "value": 0.1782,
+        "source": "Derived: TTM 5,572.3M / prior TTM 4,729.4M ($K 4,458,036 + 2,400,888 - 2,129,552) - 1. 10-Qs Q2/Q3 2025 https://www.sec.gov/Archives/edgar/data/1447669/000144766925000151/twlo-20250930.htm"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 398304000,
+        "source": "Derived: OCF 1,060.7M - capex 10.9M - cap. software 61.2M - SBC 590.3M (TTM each; $K OCF 1,003,244 + 525,591 - 468,126; capex 5,848 + 7,218 - 2,167; cap. software 51,969 + 33,383 - 24,152; SBC 600,407 + 278,423 - 288,524). 'Purchases of long-lived and intangible assets' + 'Capitalized software development costs'. 10-K FY2025 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000021/twlo-20251231.htm; 10-Q Q2 2026 https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "fcf_components_ttm_usd": {
+        "ocf": 1060709000,
+        "capex_ppe": 10899000,
+        "capitalized_software": 61200000,
+        "sbc": 590306000,
+        "fcf_before_sbc": 988610000
+      },
+      "enterprise_value": 44567554812,
+      "ev_revenue": 7.998,
+      "ev_fcf": 111.89,
+      "fcf_margin": 0.0715,
+      "rule_of_40": 0.2497
+    }
+  },
+  "notes": {
+    "fcf_definition": "OCF - PP&E capex - capitalized software - SBC (after SBC), TTM, GAAP cash-flow lines, same for target and peers",
+    "forward_revenue": "Not used: no free, citable consensus forward estimates; trailing figures only (brief allows)",
+    "price_source": "All prices are 2026-10-09 closes (last trading day before as_of) from one source, financialcontent.com; OKTA and TWLO levels cross-checked against undated/mid-September quotes"
+  },
+  "methods": {
+    "median_ev_revenue": 454.03,
+    "rule_of_40_regression": 490.9,
+    "median_ev_fcf": 166.67
+  },
+  "regression": {
+    "slope": 7.6481,
+    "intercept": 4.8698,
+    "r2": 0.045,
+    "residual_spread": 3.5509
+  },
+  "range": {
+    "low": 166.67,
+    "high": 454.03,
+    "basis": "methods",
+    "note": "Rule-of-40 fit is weak (r2 0.045), so per the skill the regression band (248.93-732.86) is not used, and per the checker flag the range leans on the two plain medians: median EV/FCF after SBC (166.67) to median EV/revenue (454.03). The regression value (490.90) is reported but not relied on."
+  }
+}

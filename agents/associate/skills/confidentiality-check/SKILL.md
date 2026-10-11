@@ -3,28 +3,47 @@ name: confidentiality-check
 description: Sweep any output for cross-client data or client-identifying material before it leaves the engagement boundary. Use before submitting reusable or external-facing work.
 ---
 
-# confidentiality-check
+# Confidentiality check
 
-> **STATUS: STUB.** Routing description above is final; body is a TODO outline.
-> Flag to the EM if this skill is load-bearing for your module — that escalates
-> writing the full body.
+Charter principle 8: client data is radioactive. This check **fails closed**: if in
+doubt, hold the output and escalate. Being wrong in the cautious direction costs a
+question to the EM. Being wrong the other way can end a client relationship.
 
-## Method
+## The sweep (run on the memo and every file in the module folder)
 
-TODO. Must cover:
-- Cross-client contamination scan: benchmarks, quotes, exhibits with client fingerprints
-- Anonymization standards for reusable assets (what generalization is sufficient)
-- Data room material never leaves engagement scope
-- On any doubt: hold and escalate — this check fails closed
+1. **Classify every source** as one of:
+   - **Public:** SEC filings, company websites, published research, market prices.
+   - **Client-confidential:** anything from this client's data room, interviews or
+     staff.
+   - **Other-client:** anything from another engagement, including firm benchmarks
+     built from client work.
+2. **Other-client material** must not appear unless it is in an approved, anonymized
+   firm benchmark. Look for client names, code names, distinctive numbers, and
+   exhibits copied from other engagements.
+3. **Client-confidential material** stays inside this engagement. If the module output
+   will be reused (a benchmark, a fact-base record marked for firm use), strip or
+   generalize it.
+4. **Outreach:** any draft to people outside the firm is marked DRAFT for a human to send.
 
-## Output format
+## Anonymization standard (for anything reusable)
 
-TODO — module memo per AGENTS.md plus skill-specific exhibits.
+Removing the name isn't enough. A reader must not be able to identify the client from
+the combination of industry, size, geography and dates. Use ranges, not exact figures
+(for example "$1–5B revenue" rather than "$3.13B"), and drop distinctive details.
+
+## Recording the result
+
+Add one line to the memo's Open issues: "Confidentiality check: pass. Sources are
+[public / client data room / ...]; no other-client material." If it doesn't pass, write
+`escalation.md` instead of submitting.
 
 ## Failure modes
 
-TODO — the 3–5 ways this module type goes wrong in practice.
+- A benchmark from a past engagement that still carries a client's exact numbers.
+- Treating "it's on the internet" as public when it is a leaked document.
+- A memo for one client that names another client as a comparison.
 
-## Handoff
+## Note
 
-TODO — metadata tags for the fact base; what downstream agents need.
+This is advice the agent follows, not a block. The plan moves it into a hook before any
+multi-client use (HANDOVER, open question 6).

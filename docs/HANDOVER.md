@@ -145,6 +145,141 @@ Every value carries its filing and a sec.gov link.
 - `ir.hubspot.com` returns 403 (bot protection on the site). Earnings releases are on
   EDGAR as 8-K exhibits, so this is not a gap.
 
+## Brief 01 fact pack: first run on live data (2026-10-11)
+
+Phase 2 is done. The Associate ran Brief 01 with the EDGAR connector (about 70 tool calls,
+6.5 minutes) and passed the gate. The memo is (force-added past the `/engagements/` ignore so it survives)
+`engagements/hubspot-value/modules/01-fact-pack/memo.md`. Headline figures: TTM revenue to
+June 2026 $3.45B (+21%), GAAP operating margin 3.8%, non-GAAP 20.1%, FCF $658M, $1.38B cash
+and investments, no debt, 49.87M shares (2026-07-31).
+
+- **EM check:** headline facts were pulled independently and every derivation recomputed;
+  all tie. One wording error was fixed ("~99%" subscription share should be ~98%). The
+  Associate's own checks were internally consistent but could not catch a wrong input
+  copied in consistently, so the EM's independent re-pull stays part of acceptance.
+- **The restatement check worked:** `restated`/`earlier_values` caught the FY2023 revision
+  (vendor credits, $7.1M) at once. This is a fact-base candidate.
+- **Good judgment unprompted:** it caught the 2025 change in NRR method, the 2026-10-06
+  restructuring 8-K ($65–75M, excluded from GAAP guidance), and that guidance implies ~14%
+  growth in H2 2026.
+- **Gaps:** no fully diluted share count (added to Phase 3); the Analyst Day 2026-09-17
+  targets are on IR only; the pack goes stale with Q3 2026 results in early November.
+  `company-profile` and the closing trio are still stubs (flagged again).
+
+### Connector backlog (from the Associate's notes, by value)
+
+1. Return exhibit URLs per filing (earnings releases are 8-K Ex. 99.1; it had to guess
+   `hubs-ex99_1.htm`).
+2. Return 8-K item codes (2.02 results, 2.05 restructuring, 5.02 officers) in `edgar_list_filings`.
+3. `edgar_read_filing`: a budget for each keyword (the first keyword used up the whole
+   budget) and snippets that include whole tables, not ones cut off before the numbers.
+4. `edgar_get_fact`: derived Q4 and a TTM option; `limit` should not let YTD rows push
+   out annual history.
+5. `edgar_search_concepts`: sort by latest period or hide tags unused since ~2018.
+6. Dimensioned facts (subscription vs services split) are not exposed.
+
+## Module 02, what the price implies (2026-10-11)
+
+Phase 3's "done when" is met: module 2 passed the gate on real filing data. Memo:
+`engagements/hubspot-value/modules/02-implied-expectations/memo.md`.
+
+- **Answer:** at $228.30 (close 2026-10-09) the market prices in ~9% growth for 10 years
+  and a ~17% long-run FCF margin after SBC. That margin is below all four named peers
+  (Autodesk 22.5%, Salesforce 26.2%, Intuit 30.6%, Adobe 33.3%). At Autodesk's margin the
+  price needs only 5.8% growth. Discount rate 10.5% (CAPM: 5.24% + 1.25 × 4.20%),
+  terminal growth 3.0% (cap 4.0%), diluted shares 52.45M, EV $10.66B.
+- **This cuts against the working answer** ("price assumes fast growth and rising
+  margins"). Escalated to the Partner, who **kept the working answer** (2026-10-11) as the
+  hypothesis for Module 3 to test.
+  EM note: "undemanding" assumes HubSpot converges to mature peers; Module 3's bear case
+  should test non-convergence (for example AI pressure on seat-based software).
+- **Built for it:** `implied-expectations` skill with `reverse_dcf.py` (model; implied
+  margin is exact because EV is linear in the margin) and `valuation_check.py` (classic
+  DCF errors), now run by the gate on `valuation.json`. Closing four skills written.
+  Peer set is fixed in the brief, not chosen by the Analyst.
+- **EM check:** price, Treasury yield, Adobe peer figures and the model re-run were
+  verified independently; all tie.
+- **Unverified input:** Analyst Day 2030 targets (30% non-GAAP operating margin, SBC 10%
+  of revenue) come from one secondary article; the IR site blocks automated access.
+
+### implied-expectations backlog (from the Associate's notes)
+
+1. Diluted shares fallback order when the 10-Q has no award table: anti-dilutive table +
+   dilutive shares, then the 10-K roll-forward, then an estimate.
+2. Checker: also flag a margin *below the lowest peer* ("undemanding; check against the
+   working answer"), which is the charter's top escalation; check diluted > basic shares;
+   ask how the headline growth was chosen.
+3. `reverse_dcf.py`: accept a growth path (fade), not only constant growth; produce the
+   terminal growth ±0.5 point runs; mention mid-year discounting (~0.8 point lower margins).
+4. Skill guidance on debt-like items (leases: don't add; restructuring cash: add) and on
+   SBC capitalized into software.
+5. Name Damodaran's current ERP page (`New_Home_Page/home.htm`); `implpr.html` stops in 2016.
+6. Connector: `edgar_read_filing` missed an exact phrase in the 10-K (likely whitespace).
+
+## Module 03, two stories (2026-10-11)
+
+The Partner replaced bear/base/bull with two stories. Memo:
+`engagements/hubspot-value/modules/03-dcf-scenarios/memo.md`.
+
+- **Answer:** Grows up (growth fades 14% → 4%, margin after SBC to 25% by year 7) is worth
+  **$343.75**; Squeezed (12% falling to 3% by year 7, margin stalls at 12%) is worth
+  **$149.21**. The price of $228.30 sits 41% of the way toward Grows up (25–42% over the
+  two-week range). Margin, not growth, separates the stories (swap test: $116–156 vs $39–79).
+- **Working answer fails again:** the market accepts ~9% growth but doubts the margin.
+  Escalated; the Partner decides at the final checkpoint.
+- **Evidence that tells the stories apart:** net adds down (6,988 vs 9,724 a year
+  earlier), entry-price cuts, a new FY2025 risk factor on LLMs and vibe coding (verified
+  new vs FY2024); against that, seats and credits still growing and NRR ~102% (call,
+  unverified). What decides it: Q3 2026 NRR and net adds (early November), gross margin
+  vs AI costs, SBC % of revenue.
+- **Built:** `valuation-dcf` skill, `dcf.py`, growth paths in the shared model, and the
+  `dcf` type in `valuation_check.py` (two sourced evidence items per story, stories-too-
+  close and price-outside-both flags). 99 tests.
+
+### valuation-dcf backlog (from the Associate's notes)
+
+1. `dcf.py --write` to merge results into valuation.json (it wrote its own merge script).
+2. Print the price's position between stories and a swap test (most useful diagnostic).
+3. Optional margin parts (pre-SBC FCF margin, SBC %, capex %) so reinvestment is visible.
+4. Say that year 1 starts after the TTM base (H2 2026 + H1 2027), and note mid-year
+   discounting (~+5% to values).
+5. Evidence grade: require at least one A or B source per story.
+6. `dcf` type: optionally carry today's market EV for reference.
+
+## Module 04, peer comparison, and the draft answer (2026-10-11)
+
+All four modules are done. The final answer is `docs/engagements/hubspot-value/answer.md`,
+**approved by the Partner on 2026-10-11** (checkpoint 2). Project Hub is complete; next is
+Phase 4 (the EM as an agent), which should reproduce this engagement end to end.
+
+- **Module 04:** EM-set rules applied to 20 candidates; 7 peers pass (Autodesk, Workday,
+  ServiceNow, DocuSign, Box, Twilio, Okta). On 52.45M shares: $161 (EV/FCF after SBC)
+  to $438 (EV/revenue; $324 without Okta and Twilio). Rule-of-40 fit r² 0.05, so the
+  range uses the plain medians. HubSpot's FCF gap is before SBC (19% vs 31%), not SBC.
+- **The answer:** about $150–$345 per share, hinging on cash conversion; $228 prices in
+  roughly a 40% chance HubSpot matures. The DCF and peers, built independently, agree on
+  that hinge. The working answer did not survive.
+- **EM errors to learn from:** (1) a line on Module 2's result in the engagement doc was
+  readable by Module 4 (independent modules should be pointed only at the fact pack);
+  (2) Module 4 used 50.6M shares vs 52.45M elsewhere (the fact base, Phase 5, fixes this).
+- **Skill loading:** `Skill("benchmarking")` returned "Unknown skill" because associate
+  skills live in `agents/associate/skills/`, not a registered skills folder; agents read
+  SKILL.md directly. Fix when packaging (Phase 6 or plugin work).
+
+### benchmarking backlog (from the Associate's notes)
+
+1. One rule for the range when r² < 0.3 (skill and checker flag disagree), a
+   `--basis methods` option, and a range note field.
+2. Compute quartiles and pre-SBC FCF margin and SBC % in `comps.py`.
+3. Define the share basis (period-end basic + treasury-stock dilution vs weighted
+   diluted) once, engagement-wide.
+4. Normalization cases: no capitalized-software line, preferred stock, equity-method
+   investments, post-balance-sheet acquisitions, splits, 10-K-latest TTM.
+5. Methods-basis check should require the range to equal named method values.
+6. Name a free daily-price source (stockanalysis.com and financialcontent.com work);
+   document dropping negative-FCF peers from EV/FCF; a field for forward revenue.
+7. Brief template: define "cloud software" for usage-based models (Twilio).
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.

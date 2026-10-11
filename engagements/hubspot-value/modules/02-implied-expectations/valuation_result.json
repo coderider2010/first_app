@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "company": "HubSpot, Inc. (HUBS)",
+  "headline": {
+    "growth": 0.09,
+    "margin": 0.1715,
+    "wacc": 0.105
+  },
+  "checks_run": true,
+  "errors": [],
+  "flags": [],
+  "note": "green = internally consistent, NOT correct; inputs and judgment remain your job"
+}

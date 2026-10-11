@@ -1,6 +1,6 @@
 # Engagement: Project Hub (what is HubSpot worth?)
 
-**Status:** Plan approved by Partner 2026-10-10 · **Started:** 2026-10-10 · **Partner:** the user
+**Status:** Complete; answer approved by Partner 2026-10-11 ([answer](hubspot-value/answer.md)) · Plan approved 2026-10-10 · **Started:** 2026-10-10 · **Partner:** the user
 
 ## The client and the question
 
@@ -19,20 +19,24 @@ now; they can be added later as separate workstreams.
 > Today's share price assumes HubSpot keeps growing quickly while expanding margins. Its
 > value depends on whether those assumptions are realistic.
 
+*2026-10-11: Module 2 found the price implies ~9% growth and a ~17% margin, below every
+mature peer, which cuts against this. The Partner chose to keep the working answer as the
+hypothesis for Module 3 to test.*
+
 ## Output
 
-A one-page answer: a **value range per share** (bear, base, bull), today's price for
-comparison, the 2–3 assumptions that move the value most, and every number linked to its
+A one-page answer: a **value per share under two stories** ("grows up" and "squeezed";
+changed from bear/base/bull by the Partner on 2026-10-11), today's price for comparison, the 2–3 assumptions that move the value most, and every number linked to its
 source.
 
 ## The work: four modules
 
 | Module | Question it answers | Skill | Skill status |
 |---|---|---|---|
-| 1. Company fact pack | What are HubSpot's actual numbers? Revenue, growth, margins, cash flow, customers, retention, share count | `company-profile` | Stub |
-| 2. What the price implies | What growth and margins does today's share price assume? | `implied-expectations` | **Missing** |
-| 3. DCF scenarios | What is it worth under bear, base and bull assumptions? | `valuation-dcf` | **Missing** |
-| 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Stub |
+| 1. Company fact pack | What are HubSpot's actual numbers? Revenue, growth, margins, cash flow, customers, retention, share count | `company-profile` | Stub (module done 2026-10-11) |
+| 2. What the price implies | What growth and margins does today's share price assume? | `implied-expectations` | Full |
+| 3. DCF scenarios | What is it worth under two stories: grows up vs squeezed? | `valuation-dcf` | Full |
+| 4. Peer comparison | What do listed software peers suggest it is worth? | `benchmarking` | Full |
 
 Briefs: [01 fact pack](hubspot-value/briefs/01-fact-pack.md) ·
 [02 what the price implies](hubspot-value/briefs/02-implied-expectations.md) ·
@@ -55,4 +59,4 @@ the Analyst explains why rather than averaging them.
 ## Partner checkpoints (the user)
 
 1. ~~Approve this plan and the four briefs.~~ Done 2026-10-10.
-2. Approve the final value range.
+2. ~~Approve the final answer (value per share under each story).~~ Done 2026-10-11.

@@ -1,0 +1,274 @@
+{
+  "type": "dcf",
+  "company": "HubSpot, Inc. (HUBS)",
+  "as_of": "2026-10-11",
+  "currency": "USD",
+  "price": {
+    "value": 228.3,
+    "date": "2026-10-09",
+    "source": "NYSE close 2026-10-09, still the latest close on as_of 2026-10-11 (a Sunday; refreshed 2026-10-11, unchanged from Module 2). stockanalysis.com/stocks/hubs/history and financialcontent.com/quote/NY:HUBS/historical agree. Range over the 10 trading days to 10-09: $197.67-231.84"
+  },
+  "shares": {
+    "value": 52449000,
+    "basis": "diluted",
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): basic 49,658K outstanding at 2026-06-30 (balance sheet) + 2,745K RSUs/PSUs excluded as anti-dilutive (Note 3, Q2 weighted avg, counted in full: zero strike) + 46K dilutive equivalents from options/RSUs/ESPP by treasury stock method (Note 3) . Reused from Module 2 and re-run 2026-10-11 (49,658+2,745+46 = 52,449K)."
+  },
+  "debt": {
+    "value": 0,
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): 2025 convertible notes settled June 2025; $500M revolver undrawn at 2026-06-30 (fact pack A4)"
+  },
+  "cash": {
+    "value": 1383208000,
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): cash 958,314K + ST inv. 379,629K + LT inv. 45,265K at 2026-06-30 (fact pack A4)"
+  },
+  "other_ev_adjustments": [
+    {
+      "name": "Restructuring cash cost announced 2026-10-06 (midpoint of $65-75M; not in TTM FCF)",
+      "value": 70000000,
+      "source": "8-K filed 2026-10-06: https://www.sec.gov/Archives/edgar/data/1404655/000119312526414965/d183135d8k.htm"
+    }
+  ],
+  "base_revenue": {
+    "value": 3448998000,
+    "period": "TTM to 2026-06-30",
+    "source": "Derived: FY2025 3,131,266K (10-K https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm) + H1 2026 1,792,735K - H1 2025 1,475,003K (10-Q https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm); ties to fact pack A1"
+  },
+  "base_fcf_margin": {
+    "value": 0.041672,
+    "definition": "(OCF 856,365K - PP&E 58,869K - capitalized software 139,059K - SBC 514,712K) / revenue, TTM to 2026-06-30 = 143,725K / 3,448,998K",
+    "source": "Derived from GAAP cash-flow lines, FY2025 10-K + Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm); ties to fact pack A3"
+  },
+  "sbc_treatment": "expense",
+  "discount_rate": {
+    "value": 0.105,
+    "method": "CAPM cost of equity (no debt, so WACC = cost of equity): 5.24% + 1.25 x 4.20% = 10.49%, rounded to 10.5%",
+    "risk_free": {
+      "value": 0.0524,
+      "source": "US Treasury daily par yield curve, 10-year, 2026-10-09 (home.treasury.gov); FRED DGS10 5.22% on 2026-10-08 agrees"
+    },
+    "beta": {
+      "value": 1.25,
+      "source": "Damodaran, Software (System & Application), unlevered beta corrected for cash, Jan 2026 update (309 firms); relevered at HubSpot D/E = 0. Cross-check: HUBS 5-year regression beta 1.24 (stockanalysis.com, 2026-10-10)"
+    },
+    "equity_risk_premium": {
+      "value": 0.042,
+      "source": "Damodaran implied ERP for the S&P 500 on 2026-10-01 (trailing 12-month cash yield, adjusted payout), pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm"
+    }
+  },
+  "terminal_growth": {
+    "value": 0.03,
+    "source": "Judgment: below the nominal-GDP cap because a mature software franchise should grow with, not faster than, the economy; sensitivity at 2.5%, 3.5% and the 4.0% cap in memo",
+    "cap": 0.04,
+    "cap_source": "FOMC Summary of Economic Projections, 2026-09-16: longer-run median real GDP growth 2.0% + PCE inflation 2.0% = ~4.0% nominal (federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm)"
+  },
+  "horizon_years": 10,
+  "peer_margins": {
+    "Adobe": {
+      "value": 0.3328,
+      "source": "FY2025 10-K (FYE 2025-11-28): (OCF 10,031M - PP&E 179M - SBC 1,942M) / revenue 23,769M; https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm"
+    },
+    "Salesforce": {
+      "value": 0.2623,
+      "source": "FY2026 10-K (FYE 2026-01-31): (OCF 14,996M - PP&E 594M - SBC 3,509M) / revenue 41,525M; https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm"
+    },
+    "Intuit": {
+      "value": 0.3059,
+      "source": "FY2026 10-K (FYE 2026-07-31): (OCF 8,838M - PP&E 175M - capitalized software 46M - SBC 2,056M) / revenue 21,448M; https://www.sec.gov/Archives/edgar/data/896878/000089687826000037/intu-20260731.htm"
+    },
+    "Autodesk": {
+      "value": 0.225,
+      "source": "FY2026 10-K (FYE 2026-01-31): (OCF 2,452M - PP&E 43M - SBC 788M) / revenue 7,206M; https://www.sec.gov/Archives/edgar/data/769397/000076939726000015/adsk-20260131.htm"
+    }
+  },
+  "margin_ramp_years": 10,
+  "scenarios": {
+    "Grows up": {
+      "narrative": "HubSpot matures like its peers. AI agents and credits add to seat revenue rather than replacing it, net customer adds recover toward the 9-10K/quarter management expected, NRR returns to at least FY2025's 103.5%, and SBC falls from 14.9% to about 8% of revenue while pre-SBC FCF margin rises from 19% to about 33% (Autodesk/Salesforce level). Growth fades from the guided ~14% to 4% by year 10; FCF margin after SBC reaches 25% by year 7 (FY2033), passing management's reported 2030 target path (~19-20% after SBC) on the way.",
+      "growth": {
+        "start": 0.14,
+        "end": 0.04
+      },
+      "target_margin": 0.25,
+      "margin_ramp_years": 7,
+      "evidence": [
+        {
+          "claim": "Management reaffirmed FY2026 guidance and says it 'remains confident in achieving its longer-term operating margin targets shared at its Analyst Day on September 17, 2026', even while restructuring ~7% of staff.",
+          "source": "HubSpot 8-K filed 2026-10-06, Item 2.02: https://www.sec.gov/Archives/edgar/data/1404655/000119312526414965/d183135d8k.htm"
+        },
+        {
+          "claim": "Reported 2030 targets: 30% non-GAAP operating margin, 20% GAAP operating margin, SBC at 10% of revenue (implies ~19-20% FCF after SBC by 2030). Unverified secondary source, grade C.",
+          "source": "The Cerbat Gem, 2026-09-18: https://www.thecerbatgem.com/?p=10395683"
+        },
+        {
+          "claim": "Margin repair is already under way: non-GAAP operating margin 15.5% (FY23) to 20.3% (Q2 26); SBC fell from 19.9% to 14.9% of revenue; FY2026 non-GAAP operating income guidance raised from $736-740M to $762-766M while revenue guidance was trimmed.",
+          "source": "Module 01 fact pack, from FY2023-25 10-Ks/8-Ks and Q2 2026 8-K Ex. 99.1: https://www.sec.gov/Archives/edgar/data/1404655/000119312526335148/hubs-ex99_1.htm"
+        },
+        {
+          "claim": "Seats and credits are still expanding: CFO on the Q2 2026 call said 'seat and credit expansion' continued to benefit NRR and 'Total credits consumption grew in Q2 despite the pricing changes'; customer dollar retention 'remained healthy in the high 80s'. Third-party transcript, grade C.",
+          "source": "HubSpot Q2 2026 earnings call (2026-08-05), transcript: https://transcripts.platformaeronaut.com/transcripts/HUBS-2Q26-transcript"
+        },
+        {
+          "claim": "Mature peers kept expanding FCF margin after SBC through the AI period: Adobe 28.1% to 33.3%, Salesforce 24.4% to 26.2%, Intuit 21.9% to 30.6%, Autodesk 14.4% to 22.5% (prior to latest fiscal year).",
+          "source": "Peer 10-Ks via Module 02 Exhibit A2, e.g. Salesforce FY2026 10-K: https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm"
+        }
+      ],
+      "enterprise_value": 16715968936,
+      "equity_value": 18029176936,
+      "value_per_share": 343.75,
+      "terminal_share": 0.615
+    },
+    "Squeezed": {
+      "narrative": "AI pressure on software sold per seat keeps HubSpot from maturing. Buyers divert budget to AI and token costs, agent price cuts and trials hold back expansion, net adds stay at the guided 5-6K/quarter, and NRR drifts below 100%. Growth fades fast from ~12% (H2 2026 at 14%, then the weaker H1 2027 run-rate) to 3% by year 7 and stays there. Price cuts and AI inference costs cap pre-SBC FCF margin at ~25%, and SBC stays near 13% of revenue to retain staff on a low share price, so FCF margin after SBC stalls at 12% from year 5.",
+      "growth": [
+        0.12,
+        0.09,
+        0.07,
+        0.06,
+        0.05,
+        0.04,
+        0.03,
+        0.03,
+        0.03,
+        0.03
+      ],
+      "target_margin": 0.12,
+      "margin_ramp_years": 5,
+      "evidence": [
+        {
+          "claim": "Net customer additions fell to 6,988 in Q2 2026 (10,752 in Q1 2026; 9,724 in Q2 2025), below management's 9-10K expectation; the CFO now expects ~5-6K a quarter and says H2 guidance assumes 'the headwinds we saw in Q2 will persist'.",
+          "source": "Customer counts: HubSpot 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm) and 10-Q Q1 2026 (https://www.sec.gov/Archives/edgar/data/1404655/000119312526212122/hubs-20260331.htm); quotes: Q2 2026 call transcript, grade C, https://transcripts.platformaeronaut.com/transcripts/HUBS-2Q26-transcript"
+        },
+        {
+          "claim": "Management links the slowdown to AI: 'unpredictable AI costs across the broader landscape are impacting budgets'; 'downgrade pressure as they sort of optimize their overall spend'; NRR 102%, down a point, with full-year NRR now expected flat; HubSpot 'lowered entry price points' and introduced outcome-based agent pricing and trials, a 'near-term headwind for credit expansion'.",
+          "source": "HubSpot Q2 2026 earnings call (2026-08-05), third-party transcript, grade C: https://transcripts.platformaeronaut.com/transcripts/HUBS-2Q26-transcript"
+        },
+        {
+          "claim": "New risk language: the FY2025 10-K and Q2 2026 10-Q add competition from 'generic LLMs', 'general-purpose agents' and 'vibe coding' that may force HubSpot to 'decrease the prices'; this language is absent from the FY2024 10-K. Cost of subscription revenue now explicitly includes 'AI inferencing costs', and GAAP gross margin fell from 85.0% (FY2024) to 82.4% (Q2 2026).",
+          "source": "HubSpot 10-K FY2025 (https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm) vs 10-K FY2024 (https://www.sec.gov/Archives/edgar/data/1404655/000095017025018873/hubs-20241231.htm); 10-Q Q2 2026 cost of revenue note"
+        },
+        {
+          "claim": "CEO letter on the restructuring: 'we have shifted our strategy from building software that helps customers grow to delivering outcomes for them with AI. That shift is transforming product, pricing and how we serve our customers.'",
+          "source": "HubSpot 8-K Ex. 99.1, 2026-10-06: https://www.sec.gov/Archives/edgar/data/1404655/000119312526414965/d183135dex991.htm"
+        },
+        {
+          "claim": "Peer evidence: Salesforce's FY2026 10-K names 'decreases in the number of users at our customers' and 'the increased prevalence of consumption-based pricing models' as attrition risks, and its revenue growth slowed to 9.6%.",
+          "source": "Salesforce 10-K FY2026 (FYE 2026-01-31): https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm"
+        }
+      ],
+      "enterprise_value": 6512460364,
+      "equity_value": 7825668364,
+      "value_per_share": 149.21,
+      "terminal_share": 0.547
+    }
+  },
+  "sensitivity": [
+    {
+      "scenario": "Grows up",
+      "wacc": 0.095,
+      "terminal_growth": 0.025,
+      "value_per_share": 383.88
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.095,
+      "terminal_growth": 0.03,
+      "value_per_share": 402.7
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.095,
+      "terminal_growth": 0.035,
+      "value_per_share": 424.65
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.105,
+      "terminal_growth": 0.025,
+      "value_per_share": 330.6
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.105,
+      "terminal_growth": 0.03,
+      "value_per_share": 343.75
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.105,
+      "terminal_growth": 0.035,
+      "value_per_share": 358.77
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.115,
+      "terminal_growth": 0.025,
+      "value_per_share": 289.54
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.115,
+      "terminal_growth": 0.03,
+      "value_per_share": 299.05
+    },
+    {
+      "scenario": "Grows up",
+      "wacc": 0.115,
+      "terminal_growth": 0.035,
+      "value_per_share": 309.75
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.095,
+      "terminal_growth": 0.025,
+      "value_per_share": 163.56
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.095,
+      "terminal_growth": 0.03,
+      "value_per_share": 170.08
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.095,
+      "terminal_growth": 0.035,
+      "value_per_share": 177.69
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.105,
+      "terminal_growth": 0.025,
+      "value_per_share": 144.65
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.105,
+      "terminal_growth": 0.03,
+      "value_per_share": 149.21
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.105,
+      "terminal_growth": 0.035,
+      "value_per_share": 154.41
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.115,
+      "terminal_growth": 0.025,
+      "value_per_share": 129.99
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.115,
+      "terminal_growth": 0.03,
+      "value_per_share": 133.29
+    },
+    {
+      "scenario": "Squeezed",
+      "wacc": 0.115,
+      "terminal_growth": 0.035,
+      "value_per_share": 137.0
+    }
+  ]
+}

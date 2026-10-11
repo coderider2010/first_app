@@ -1,0 +1,285 @@
+{
+  "type": "reverse_dcf",
+  "company": "HubSpot, Inc. (HUBS)",
+  "as_of": "2026-10-11",
+  "currency": "USD",
+  "price": {
+    "value": 228.3,
+    "date": "2026-10-09",
+    "source": "NYSE close 2026-10-09 (last trading day before as_of, a Sunday); stockanalysis.com/stocks/hubs/history and financialcontent.com/quote/NY:HUBS/historical agree"
+  },
+  "shares": {
+    "value": 52449000,
+    "basis": "diluted",
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): basic 49,658K outstanding at 2026-06-30 (balance sheet) + 2,745K RSUs/PSUs excluded as anti-dilutive (Note 3, Q2 weighted avg, counted in full: zero strike) + 46K dilutive equivalents from options/RSUs/ESPP by treasury stock method (Note 3)"
+  },
+  "debt": {
+    "value": 0,
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): 2025 convertible notes settled June 2025; $500M revolver undrawn at 2026-06-30 (fact pack A4)"
+  },
+  "cash": {
+    "value": 1383208000,
+    "source": "Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm): cash 958,314K + ST inv. 379,629K + LT inv. 45,265K at 2026-06-30 (fact pack A4)"
+  },
+  "equity_value": 11974106700.0,
+  "other_ev_adjustments": [
+    {
+      "name": "Restructuring cash cost announced 2026-10-06 (midpoint of $65-75M; not in TTM FCF)",
+      "value": 70000000,
+      "source": "8-K filed 2026-10-06: https://www.sec.gov/Archives/edgar/data/1404655/000119312526414965/d183135d8k.htm"
+    }
+  ],
+  "enterprise_value": 10660898700.0,
+  "base_revenue": {
+    "value": 3448998000,
+    "period": "TTM to 2026-06-30",
+    "source": "Derived: FY2025 3,131,266K (10-K https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm) + H1 2026 1,792,735K - H1 2025 1,475,003K (10-Q https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm); ties to fact pack A1"
+  },
+  "base_fcf_margin": {
+    "value": 0.041672,
+    "definition": "(OCF 856,365K - PP&E 58,869K - capitalized software 139,059K - SBC 514,712K) / revenue, TTM to 2026-06-30 = 143,725K / 3,448,998K",
+    "source": "Derived from GAAP cash-flow lines, FY2025 10-K + Q2 2026 10-Q (https://www.sec.gov/Archives/edgar/data/1404655/000119312526335232/hubs-20260630.htm); ties to fact pack A3"
+  },
+  "sbc_treatment": "expense",
+  "discount_rate": {
+    "value": 0.105,
+    "method": "CAPM cost of equity (no debt, so WACC = cost of equity): 5.24% + 1.25 x 4.20% = 10.49%, rounded to 10.5%",
+    "risk_free": {
+      "value": 0.0524,
+      "source": "US Treasury daily par yield curve, 10-year, 2026-10-09 (home.treasury.gov); FRED DGS10 5.22% on 2026-10-08 agrees"
+    },
+    "beta": {
+      "value": 1.25,
+      "source": "Damodaran, Software (System & Application), unlevered beta corrected for cash, Jan 2026 update (309 firms); relevered at HubSpot D/E = 0. Cross-check: HUBS 5-year regression beta 1.24 (stockanalysis.com, 2026-10-10)"
+    },
+    "equity_risk_premium": {
+      "value": 0.042,
+      "source": "Damodaran implied ERP for the S&P 500 on 2026-10-01 (trailing 12-month cash yield, adjusted payout), pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm"
+    }
+  },
+  "terminal_growth": {
+    "value": 0.03,
+    "source": "Judgment: below the nominal-GDP cap because a mature software franchise should grow with, not faster than, the economy; sensitivity at 2.5%, 3.5% and the 4.0% cap in memo",
+    "cap": 0.04,
+    "cap_source": "FOMC Summary of Economic Projections, 2026-09-16: longer-run median real GDP growth 2.0% + PCE inflation 2.0% = ~4.0% nominal (federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm)"
+  },
+  "horizon_years": 10,
+  "margin_ramp_years": 10,
+  "grid_growths": [
+    0.04,
+    0.06,
+    0.08,
+    0.09,
+    0.1,
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2
+  ],
+  "peer_margins": {
+    "Adobe": {
+      "value": 0.3328,
+      "source": "FY2025 10-K (FYE 2025-11-28): (OCF 10,031M - PP&E 179M - SBC 1,942M) / revenue 23,769M; https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm"
+    },
+    "Salesforce": {
+      "value": 0.2623,
+      "source": "FY2026 10-K (FYE 2026-01-31): (OCF 14,996M - PP&E 594M - SBC 3,509M) / revenue 41,525M; https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/crm-20260131.htm"
+    },
+    "Intuit": {
+      "value": 0.3059,
+      "source": "FY2026 10-K (FYE 2026-07-31): (OCF 8,838M - PP&E 175M - capitalized software 46M - SBC 2,056M) / revenue 21,448M; https://www.sec.gov/Archives/edgar/data/896878/000089687826000037/intu-20260731.htm"
+    },
+    "Autodesk": {
+      "value": 0.225,
+      "source": "FY2026 10-K (FYE 2026-01-31): (OCF 2,452M - PP&E 43M - SBC 788M) / revenue 7,206M; https://www.sec.gov/Archives/edgar/data/769397/000076939726000015/adsk-20260131.htm"
+    }
+  },
+  "grid": [
+    {
+      "growth": 0.04,
+      "wacc": 0.095,
+      "margin": 0.2202,
+      "terminal_share": 0.674
+    },
+    {
+      "growth": 0.06,
+      "wacc": 0.095,
+      "margin": 0.1845,
+      "terminal_share": 0.684
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.095,
+      "margin": 0.1549,
+      "terminal_share": 0.692
+    },
+    {
+      "growth": 0.09,
+      "wacc": 0.095,
+      "margin": 0.142,
+      "terminal_share": 0.696
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.095,
+      "margin": 0.1303,
+      "terminal_share": 0.699
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.095,
+      "margin": 0.1097,
+      "terminal_share": 0.705
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.095,
+      "margin": 0.0926,
+      "terminal_share": 0.71
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.095,
+      "margin": 0.0782,
+      "terminal_share": 0.714
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.095,
+      "margin": 0.0662,
+      "terminal_share": 0.717
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.095,
+      "margin": 0.0561,
+      "terminal_share": 0.719
+    },
+    {
+      "growth": 0.04,
+      "wacc": 0.105,
+      "margin": 0.2641,
+      "terminal_share": 0.64
+    },
+    {
+      "growth": 0.06,
+      "wacc": 0.105,
+      "margin": 0.222,
+      "terminal_share": 0.651
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.105,
+      "margin": 0.1869,
+      "terminal_share": 0.66
+    },
+    {
+      "growth": 0.09,
+      "wacc": 0.105,
+      "margin": 0.1715,
+      "terminal_share": 0.665
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.105,
+      "margin": 0.1575,
+      "terminal_share": 0.669
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.105,
+      "margin": 0.133,
+      "terminal_share": 0.676
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.105,
+      "margin": 0.1124,
+      "terminal_share": 0.682
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.105,
+      "margin": 0.0952,
+      "terminal_share": 0.687
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.105,
+      "margin": 0.0807,
+      "terminal_share": 0.692
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.105,
+      "margin": 0.0686,
+      "terminal_share": 0.695
+    },
+    {
+      "growth": 0.04,
+      "wacc": 0.115,
+      "margin": 0.3109,
+      "terminal_share": 0.608
+    },
+    {
+      "growth": 0.06,
+      "wacc": 0.115,
+      "margin": 0.2621,
+      "terminal_share": 0.619
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.115,
+      "margin": 0.2211,
+      "terminal_share": 0.63
+    },
+    {
+      "growth": 0.09,
+      "wacc": 0.115,
+      "margin": 0.2032,
+      "terminal_share": 0.635
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.115,
+      "margin": 0.1868,
+      "terminal_share": 0.64
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.115,
+      "margin": 0.1581,
+      "terminal_share": 0.648
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.115,
+      "margin": 0.1339,
+      "terminal_share": 0.655
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.115,
+      "margin": 0.1136,
+      "terminal_share": 0.662
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.115,
+      "margin": 0.0965,
+      "terminal_share": 0.667
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.115,
+      "margin": 0.0821,
+      "terminal_share": 0.671
+    }
+  ],
+  "headline": {
+    "growth": 0.09,
+    "margin": 0.1715,
+    "wacc": 0.105
+  }
+}
