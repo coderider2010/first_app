@@ -145,6 +145,39 @@ Every value carries its filing and a sec.gov link.
 - `ir.hubspot.com` returns 403 (bot protection on the site). Earnings releases are on
   EDGAR as 8-K exhibits, so this is not a gap.
 
+## Brief 01 fact pack: first run on live data (2026-10-11)
+
+Phase 2 is done. The Associate ran Brief 01 with the EDGAR connector (about 70 tool calls,
+6.5 minutes) and passed the gate. The memo is (force-added past the `/engagements/` ignore so it survives)
+`engagements/hubspot-value/modules/01-fact-pack/memo.md`. Headline figures: TTM revenue to
+June 2026 $3.45B (+21%), GAAP operating margin 3.8%, non-GAAP 20.1%, FCF $658M, $1.38B cash
+and investments, no debt, 49.87M shares (2026-07-31).
+
+- **EM check:** headline facts were pulled independently and every derivation recomputed;
+  all tie. One wording error was fixed ("~99%" subscription share should be ~98%). The
+  Associate's own checks were internally consistent but could not catch a wrong input
+  copied in consistently, so the EM's independent re-pull stays part of acceptance.
+- **The restatement check worked:** `restated`/`earlier_values` caught the FY2023 revision
+  (vendor credits, $7.1M) at once. This is a fact-base candidate.
+- **Good judgment unprompted:** it caught the 2025 change in NRR method, the 2026-10-06
+  restructuring 8-K ($65–75M, excluded from GAAP guidance), and that guidance implies ~14%
+  growth in H2 2026.
+- **Gaps:** no fully diluted share count (added to Phase 3); the Analyst Day 2026-09-17
+  targets are on IR only; the pack goes stale with Q3 2026 results in early November.
+  `company-profile` and the closing trio are still stubs (flagged again).
+
+### Connector backlog (from the Associate's notes, by value)
+
+1. Return exhibit URLs per filing (earnings releases are 8-K Ex. 99.1; it had to guess
+   `hubs-ex99_1.htm`).
+2. Return 8-K item codes (2.02 results, 2.05 restructuring, 5.02 officers) in `edgar_list_filings`.
+3. `edgar_read_filing`: a budget for each keyword (the first keyword used up the whole
+   budget) and snippets that include whole tables, not ones cut off before the numbers.
+4. `edgar_get_fact`: derived Q4 and a TTM option; `limit` should not let YTD rows push
+   out annual history.
+5. `edgar_search_concepts`: sort by latest period or hide tags unused since ~2018.
+6. Dimensioned facts (subscription vs services split) are not exposed.
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.

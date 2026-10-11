@@ -28,9 +28,12 @@ Each phase ends with something the user can see and test.
 - Open the network to `sec.gov` and `data.sec.gov` (SEC EDGAR filings and XBRL data). *(Done.)*
 - An EDGAR connector (MCP server) that fetches filings and XBRL facts and returns them with
   source links. *(Built: `connectors/edgar/`.)*
-- `SEC_USER_AGENT` set in the environment, then the Analyst tested in a new session.
+- `SEC_USER_AGENT` set in the environment, then the Analyst tested in a new session. *(Done.)*
+- Brief 01 (fact pack) run by the Analyst on live EDGAR data and accepted by the EM.
+  *(Done: `engagements/hubspot-value/modules/01-fact-pack/memo.md`.)*
+- Connector fixes from that run (see HANDOVER, "Connector backlog"). *(Open; not blocking.)*
 
-**Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link.
+**Done when:** the Analyst quotes HubSpot's latest revenue from the 10-K, with a link. ✅ 2026-10-11
 
 ### Phase 3: The Analyst's curriculum for Project Hub
 - New skills: `implied-expectations`, `valuation-dcf`.
@@ -40,6 +43,8 @@ Each phase ends with something the user can see and test.
   the gate.
 - Fixes from the first run: benchmark ranges come from the brief, not the Analyst, and
   methods must cite independent sources.
+- Add a fully diluted share count (RSUs, PSUs, options from the latest 10-Q) to Brief 01
+  or Brief 02; the fact pack does not collect it and per-share value needs it.
 
 **Done when:** module 2 ("what the price implies") passes the gate on real filing data.
 
