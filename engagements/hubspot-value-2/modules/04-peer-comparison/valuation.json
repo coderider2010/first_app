@@ -1,0 +1,426 @@
+{
+  "type": "comps",
+  "company": "HubSpot",
+  "as_of": "2026-10-09",
+  "currency": "USD",
+  "units": "money in USD millions; shares in millions; per-share values in USD (same units as engagement.json pins)",
+  "price": {
+    "value": 228.3,
+    "date": "2026-10-09",
+    "source": "engagement.json pin: NYSE close; Yahoo Finance chart API and stockanalysis.com"
+  },
+  "shares": {
+    "value": 52.403,
+    "basis": "diluted",
+    "source": "engagement.json pin: 49.658M basic + 2.745M RSUs/PSUs, Q2 2026 10-Q (Module 01)"
+  },
+  "cash": {
+    "value": 1383.2,
+    "source": "engagement.json pin: cash + short- and long-term investments, Q2 2026 10-Q"
+  },
+  "debt": {
+    "value": 0.0,
+    "source": "engagement.json pin: no borrowings, Q2 2026 10-Q Note 10"
+  },
+  "target": {
+    "revenue_ttm": {
+      "value": 3449.0,
+      "source": "Module 01 Exhibit A1: TTM to 30 Jun 2026, FY2025 + H1'26 - H1'25 (10-K FY2025, 10-Q Q2 2026); re-derived here from XBRL, ties"
+    },
+    "revenue_growth": {
+      "value": 0.2111,
+      "source": "Module 01: TTM 3,449.0 / prior TTM 2,847.9 - 1; re-derived here, ties"
+    },
+    "fcf_after_sbc_ttm": {
+      "value": 143.7,
+      "source": "Module 01: OCF 856.4 - PP&E 58.9 - capitalized software 139.1 - SBC 514.7, TTM Jun-26 (engagement FCF definition); re-derived here, ties"
+    }
+  },
+  "selection_rules": [
+    "Files 10-K and 10-Q reports with the SEC",
+    "Most of its revenue is subscription or cloud software",
+    "It sells mainly to businesses",
+    "TTM revenue between $1B and $15B",
+    "TTM revenue growth between 8% and 25%"
+  ],
+  "candidates": [
+    {
+      "name": "Salesforce (CRM)",
+      "included": false,
+      "reason": "Rule 4: TTM revenue $43.9B to Jul-26, above the $15B limit"
+    },
+    {
+      "name": "Adobe (ADBE)",
+      "included": false,
+      "reason": "Rule 4: TTM revenue $26.0B to Aug-26, above the $15B limit"
+    },
+    {
+      "name": "Intuit (INTU)",
+      "included": false,
+      "reason": "Rule 4: TTM revenue $21.4B (FY to Jul-26), above the $15B limit"
+    },
+    {
+      "name": "Autodesk",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 95% of Q2 FY27 revenue; B2B design software; TTM revenue $7.79B; growth 17.9%"
+    },
+    {
+      "name": "Workday",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 93% of revenue; enterprise HR/finance; TTM revenue $10.16B; growth 13.3%"
+    },
+    {
+      "name": "ServiceNow",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 97%; enterprise workflow; TTM revenue $14.73B (under $15B); growth 22.2%"
+    },
+    {
+      "name": "Atlassian (TEAM)",
+      "included": false,
+      "reason": "Rule 5: TTM (FY to Jun-26) growth 26.0% ($6.57B vs $5.22B), above the 25% limit"
+    },
+    {
+      "name": "Datadog (DDOG)",
+      "included": false,
+      "reason": "Rule 5: TTM growth 31.5% ($3.97B vs $3.02B), above the 25% limit"
+    },
+    {
+      "name": "Snowflake (SNOW)",
+      "included": false,
+      "reason": "Rule 5: TTM growth 32.0% ($5.43B vs $4.12B), above the 25% limit"
+    },
+    {
+      "name": "Zoom (ZM)",
+      "included": false,
+      "reason": "Rule 5: TTM growth 5.0% ($4.99B vs $4.75B), below the 8% floor"
+    },
+    {
+      "name": "DocuSign",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 98%; sells to businesses of all sizes; TTM revenue $3.36B; growth 8.6% (near the 8% floor)"
+    },
+    {
+      "name": "Dropbox (DBX)",
+      "included": false,
+      "reason": "Rule 5: TTM growth -0.0% ($2.53B vs $2.53B), below the 8% floor"
+    },
+    {
+      "name": "Box",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; practically all revenue subscription; enterprise content management; TTM revenue $1.23B; growth 9.6%"
+    },
+    {
+      "name": "Twilio",
+      "included": true,
+      "reason": "Passes all, rule 2 by judgment: 75% usage-based fees for its cloud platform, 25% subscription (Q2 2026 10-Q); usage-priced cloud read as cloud software (the list also carries usage-priced SNOW, DDOG); B2B; TTM revenue $5.57B; growth 17.8%"
+    },
+    {
+      "name": "Klaviyo (KVYO)",
+      "included": false,
+      "reason": "Rule 5: TTM growth 28.9% ($1.39B vs $1.08B), above the 25% limit"
+    },
+    {
+      "name": "Freshworks (FRSH)",
+      "included": false,
+      "reason": "Rule 4: TTM revenue $0.90B, below the $1B floor"
+    },
+    {
+      "name": "Sprout Social (SPT)",
+      "included": false,
+      "reason": "Rule 4: TTM revenue $0.48B, below the $1B floor"
+    },
+    {
+      "name": "monday.com (MNDY)",
+      "included": false,
+      "reason": "Rule 1: foreign private issuer filing 20-F (13 Mar 2026) and 6-K, not 10-K/10-Q"
+    },
+    {
+      "name": "Zscaler (ZS)",
+      "included": false,
+      "reason": "Rule 5: TTM (FY to Jul-26) growth 25.4% ($3.35B vs $2.67B), above the 25% limit"
+    },
+    {
+      "name": "Okta",
+      "included": true,
+      "reason": "Passes all: 10-K/10-Q filer; subscription 98%; B2B identity; TTM revenue $3.07B; growth 11.2%"
+    }
+  ],
+  "peers": {
+    "Autodesk": {
+      "ticker": "ADSK",
+      "price": {
+        "value": 235.35,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/adsk), matched to the cent by stockanalysis.com/stocks/adsk/history"
+      },
+      "shares": {
+        "value": 214.413,
+        "source": "Millions, fully diluted on HubSpot's basis: 209.0M basic at 31 Jul 2026 (equity statement, reported in whole millions) + 5.413M unvested RSUs/PSUs (Note 6) + options immaterial (WAEP $22.19, count not disclosed; 0); https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "cash": {
+        "value": 4357,
+        "source": "$M at 2026-07-31: cash 4,098 + marketable securities 57 + long-term marketable securities 202 (balance sheet); strategic investments excluded; https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "debt": {
+        "value": 3478,
+        "source": "$M at 2026-07-31: short-term debt 994 + current notes 499 + long-term notes 1,985 (carrying, balance sheet); leases excluded; https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 7790.0,
+        "source": "$M total GAAP revenue; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm; accessions 0000769397-25-000117, 0000769397-26-000015, 0000769397-26-000061"
+      },
+      "revenue_growth": {
+        "value": 0.179,
+        "source": "TTM revenue 7,790.0 / prior-year TTM 6,605.0 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 2133.0,
+        "source": "$M: OCF 2,896.0 - capex 57.0 - capitalized software 0.0 - SBC 706.0; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm; accessions 0000769397-25-000117, 0000769397-26-000015, 0000769397-26-000061"
+      },
+      "enterprise_value": 49583,
+      "ev_revenue": 6.365,
+      "ev_fcf": 23.25,
+      "fcf_margin": 0.2738,
+      "rule_of_40": 0.4528
+    },
+    "Workday": {
+      "ticker": "WDAY",
+      "price": {
+        "value": 186.59,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/wday), matched to the cent by stockanalysis.com/stocks/wday/history"
+      },
+      "shares": {
+        "value": 263.574,
+        "source": "Millions, fully diluted on HubSpot's basis: 241.175M Class A+B at 31 Jul 2026 (equity statement) + 22.315M unvested RSUs/PSUs (RSU table) + 0.084M options by TSM (0.1M at $28.97, FY2025 10-K); https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "cash": {
+        "value": 3403,
+        "source": "$M at 2026-07-31: cash 661 + marketable securities 2,742 (balance sheet); non-marketable equity investments excluded; https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "debt": {
+        "value": 2989,
+        "source": "$M at 2026-07-31: debt current 999 + noncurrent 1,990 (carrying, balance sheet); leases excluded; https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 10155.0,
+        "source": "$M total GAAP revenue; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm; accessions 0001327811-25-000184, 0001327811-26-000014, 0001327811-26-000044"
+      },
+      "revenue_growth": {
+        "value": 0.133,
+        "source": "TTM revenue 10,155.0 / prior-year TTM 8,959.0 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 1198.0,
+        "source": "$M: OCF 3,081.0 - capex 237.0 - capitalized software 0.0 - SBC 1,646.0; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1327811/000132781126000044/wday-20260731.htm; accessions 0001327811-25-000184, 0001327811-26-000014, 0001327811-26-000044"
+      },
+      "enterprise_value": 48766,
+      "ev_revenue": 4.802,
+      "ev_fcf": 40.71,
+      "fcf_margin": 0.118,
+      "rule_of_40": 0.251
+    },
+    "ServiceNow": {
+      "ticker": "NOW",
+      "price": {
+        "value": 140.86,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/now), matched to the cent by stockanalysis.com/stocks/now/history"
+      },
+      "shares": {
+        "value": 1083.864,
+        "source": "Millions, fully diluted on HubSpot's basis: 1,033.862M at 30 Jun 2026 (balance sheet) + 46.824M RSUs outstanding (incl. 5.9M Armis) + 3.178M options by TSM (7.339M at $79.87); https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "cash": {
+        "value": 6707,
+        "source": "$M at 2026-06-30: cash 2,503 + marketable securities 2,161 + long-term marketable securities 2,043 (balance sheet); strategic investments 2,073 excluded; https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "debt": {
+        "value": 7517,
+        "source": "$M at 2026-06-30: short-term debt 2,082 + long-term debt 5,435 (carrying, balance sheet; raised for 2026 acquisitions); leases excluded; https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm"
+      },
+      "revenue_ttm": {
+        "value": 14732.0,
+        "source": "$M total GAAP revenue; TTM to 2026-06-30 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm; accessions 0001373715-25-000276, 0001373715-26-000007, 0001373715-26-000076"
+      },
+      "revenue_growth": {
+        "value": 0.222,
+        "source": "TTM revenue 14,732.0 / prior-year TTM 12,057.0 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 2395.0,
+        "source": "$M: OCF 5,308.0 - capex 728.0 - capitalized software 0.0 - SBC 2,185.0; TTM to 2026-06-30 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm; accessions 0001373715-25-000276, 0001373715-26-000007, 0001373715-26-000076"
+      },
+      "enterprise_value": 153483,
+      "ev_revenue": 10.418,
+      "ev_fcf": 64.08,
+      "fcf_margin": 0.1626,
+      "rule_of_40": 0.3846
+    },
+    "DocuSign": {
+      "ticker": "DOCU",
+      "price": {
+        "value": 71.08,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/docu), matched to the cent by stockanalysis.com/stocks/docu/history"
+      },
+      "shares": {
+        "value": 216.257,
+        "source": "Millions, fully diluted on HubSpot's basis: 188.176M at 31 Jul 2026 (balance sheet) + 28.018M unvested RSUs + 0.063M options by TSM (0.083M at $16.82, FY2025 10-K); https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "cash": {
+        "value": 973.075,
+        "source": "$M at 2026-07-31: cash 528.2 + investments current 249.5 + noncurrent 195.4 (balance sheet); https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "debt": {
+        "value": 0.0,
+        "source": "$M at 2026-07-31: no borrowings on balance sheet; leases excluded; https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 3361.191,
+        "source": "$M total GAAP revenue; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm; accessions 0001261333-25-000132, 0001261333-26-000021, 0001261333-26-000099"
+      },
+      "revenue_growth": {
+        "value": 0.086,
+        "source": "TTM revenue 3,361.2 / prior-year TTM 3,095.4 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 592.123,
+        "source": "$M: OCF 1,323.7 - capex 125.4 - capitalized software 0.0 - SBC 606.2; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1261333/000126133326000099/docu-20260731.htm; accessions 0001261333-25-000132, 0001261333-26-000021, 0001261333-26-000099"
+      },
+      "enterprise_value": 14398,
+      "ev_revenue": 4.284,
+      "ev_fcf": 24.32,
+      "fcf_margin": 0.1762,
+      "rule_of_40": 0.2622
+    },
+    "Box": {
+      "ticker": "BOX",
+      "price": {
+        "value": 36.39,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/box), matched to the cent by stockanalysis.com/stocks/box/history"
+      },
+      "shares": {
+        "value": 173.398,
+        "source": "Millions, fully diluted on HubSpot's basis: 137.201M at 31 Jul 2026 + 17.219M unvested RSUs + 0.459M options by TSM (0.912M at $18.06) + 18.519M as-converted Series A preferred ($500M / $27.00 conversion price; in the money at $36.39, FY2026 10-K); https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "cash": {
+        "value": 444.136,
+        "source": "$M at 2026-07-31: cash 342.9 + short-term investments 101.3 (balance sheet); https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "debt": {
+        "value": 452.212,
+        "source": "$M at 2026-07-31: 2029 convertible notes, carrying 452.2 (principal 460.0; conversion $43.46 above price, so treated as debt); Series A preferred counted in shares as-converted; https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 1234.07,
+        "source": "$M total GAAP revenue; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm; accessions 0000950170-25-111701, 0001193125-26-098466, 0001193125-26-368289"
+      },
+      "revenue_growth": {
+        "value": 0.096,
+        "source": "TTM revenue 1,234.1 / prior-year TTM 1,125.7 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 113.923,
+        "source": "$M: OCF 394.5 - capex 5.3 - capitalized software 39.5 - SBC 235.7; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1372612/000119312526368289/box-20260731.htm; accessions 0000950170-25-111701, 0001193125-26-098466, 0001193125-26-368289"
+      },
+      "enterprise_value": 6318,
+      "ev_revenue": 5.12,
+      "ev_fcf": 55.46,
+      "fcf_margin": 0.0923,
+      "rule_of_40": 0.1883
+    },
+    "Twilio": {
+      "ticker": "TWLO",
+      "price": {
+        "value": 289.47,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/twlo), matched to the cent by stockanalysis.com/stocks/twlo/history"
+      },
+      "shares": {
+        "value": 167.821,
+        "source": "Millions, fully diluted on HubSpot's basis: 153.572M at 30 Jun 2026 (equity statement) + 13.664M unvested RSUs (31 Dec 2025, FY2025 10-K; not disclosed at 30 Jun) + 0.585M options by TSM (0.902M at $101.75); https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "cash": {
+        "value": 2656.33,
+        "source": "$M at 2026-06-30: cash 823.3 + short-term marketable securities 1,833.1 (balance sheet); equity-method investment excluded; https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "debt": {
+        "value": 993.162,
+        "source": "$M at 2026-06-30: long-term debt (2029 and 2031 senior notes), carrying, balance sheet; https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm"
+      },
+      "revenue_ttm": {
+        "value": 5572.328,
+        "source": "$M total GAAP revenue; TTM to 2026-06-30 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm; accessions 0001447669-25-000122, 0001447669-26-000021, 0001447669-26-000092"
+      },
+      "revenue_growth": {
+        "value": 0.178,
+        "source": "TTM revenue 5,572.3 / prior-year TTM 4,729.4 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 398.304,
+        "source": "$M: OCF 1,060.7 - capex 10.9 - capitalized software 61.2 - SBC 590.3; TTM to 2026-06-30 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1447669/000144766926000092/twlo-20260630.htm; accessions 0001447669-25-000122, 0001447669-26-000021, 0001447669-26-000092"
+      },
+      "enterprise_value": 46916,
+      "ev_revenue": 8.419,
+      "ev_fcf": 117.79,
+      "fcf_margin": 0.0715,
+      "rule_of_40": 0.2495
+    },
+    "Okta": {
+      "ticker": "OKTA",
+      "price": {
+        "value": 232.13,
+        "date": "2026-10-09",
+        "source": "Close 2026-10-09; Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/okta), matched to the cent by stockanalysis.com/stocks/okta/history"
+      },
+      "shares": {
+        "value": 182.145,
+        "source": "Millions, fully diluted on HubSpot's basis: 174.817M Class A+B at 31 Jul 2026 + 6.758M unvested RSUs incl. market-based (31 Jan 2026, FY2026 10-K; not disclosed at 31 Jul) + 0.570M options by TSM (1.07M at $108.43); https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "cash": {
+        "value": 2299,
+        "source": "$M at 2026-07-31: cash 763 + short-term investments 1,536 (balance sheet); https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "debt": {
+        "value": 0.0,
+        "source": "$M at 2026-07-31: convertible notes repaid at maturity 15 Jun 2026; none outstanding at 31 Jul 2026; https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm"
+      },
+      "revenue_ttm": {
+        "value": 3073.0,
+        "source": "$M total GAAP revenue; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm; accessions 0001660134-25-000157, 0001660134-26-000020, 0001660134-26-000069"
+      },
+      "revenue_growth": {
+        "value": 0.112,
+        "source": "TTM revenue 3,073.0 / prior-year TTM 2,763.0 - 1; same method and filings"
+      },
+      "fcf_after_sbc_ttm": {
+        "value": 458.0,
+        "source": "$M: OCF 987.0 - capex 8.0 - capitalized software 18.0 - SBC 503.0; TTM to 2026-07-31 = latest FY + current YTD - prior YTD (SEC XBRL); 10-Q https://www.sec.gov/Archives/edgar/data/1660134/000166013426000069/okta-20260731.htm; accessions 0001660134-25-000157, 0001660134-26-000020, 0001660134-26-000069"
+      },
+      "enterprise_value": 39982,
+      "ev_revenue": 13.011,
+      "ev_fcf": 87.3,
+      "fcf_margin": 0.149,
+      "rule_of_40": 0.261
+    }
+  },
+  "methods": {
+    "median_ev_revenue": 445.32,
+    "rule_of_40_regression": 502.0,
+    "median_ev_fcf": 178.48
+  },
+  "regression": {
+    "slope": 6.5547,
+    "intercept": 5.5694,
+    "r2": 0.034,
+    "residual_spread": 3.5252
+  },
+  "range": {
+    "low": 178.48,
+    "high": 502.0,
+    "basis": "methods",
+    "why": "Rule-of-40 regression r2 = 0.03 (< 0.3 threshold): growth + margin explains almost none of the peer EV/revenue spread, so the regression band is not used; range is the spread of the three methods (median EV/FCF-after-SBC low, regression high)."
+  }
+}
