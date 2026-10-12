@@ -21,3 +21,7 @@
 - Escalation 5 (FY2023 immaterial revision) accepted; accounting item, reported to Partner for information.
 - Out-of-scope items for the Partner: CLO resigned 8 Oct 2026 (8-K); 7% workforce cut 1 Oct 2026 ($65–75M, mostly Q4). No new module; noted for answer caveats.
 - Pinned shares, cash, debt, FCF definition. Commissioning 02.
+- 02 accepted. EM re-pulled price (Yahoo), 10y yield (Treasury.gov), Autodesk margin (EDGAR) and re-computed the headline with independent code: all tie.
+- Pinned price $228.30 (9 Oct 2026), discount rate 10.5%, terminal growth 3.0% (cap 4.0%), EV convention, peer margins.
+- Rule (restructuring): brief's EV definition governs over skill default; announced restructuring excluded (~0.1 pt).
+- ESCALATION, analysis contradicts the working answer: price implies ~10% growth and a 15.6% FCF-after-SBC margin, below every mature peer (22.5–33.3%). The "fast growth AND rising margins" branch holds only on the margin half, and the margin bar is below peers. Taken to the Partner the same day with replicate / proceed / change options. 03 and 04 on hold pending the decision.

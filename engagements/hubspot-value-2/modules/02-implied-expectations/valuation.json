@@ -1,0 +1,260 @@
+{
+  "type": "reverse_dcf",
+  "company": "HubSpot, Inc. (HUBS)",
+  "as_of": "2026-10-12",
+  "currency": "USD",
+  "units": "shares in millions; money in USD millions; price in USD per share; rates as decimals",
+  "price": {
+    "value": 228.3,
+    "date": "2026-10-09",
+    "source": "NYSE close Fri 9 Oct 2026 (last close before as_of): stockanalysis.com/stocks/hubs/history/ and Yahoo Finance chart API query1.finance.yahoo.com/v8/finance/chart/HUBS, both retrieved 2026-10-12; the two agree"
+  },
+  "shares": {
+    "value": 52.403,
+    "basis": "diluted",
+    "source": "Pinned, engagement.json: 49.658M basic + 2.745M RSUs/PSUs, options out of the money (Q2 2026 10-Q; module 01)"
+  },
+  "debt": {
+    "value": 0.0,
+    "source": "Pinned, engagement.json: no borrowings at 30 Jun 2026; leases excluded (Q2 2026 10-Q Note 10; module 01)"
+  },
+  "cash": {
+    "value": 1383.2,
+    "source": "Pinned, engagement.json: cash 958.3 + ST inv. 379.6 + LT inv. 45.3 at 30 Jun 2026 (Q2 2026 10-Q; module 01)"
+  },
+  "equity_value": 11963.6,
+  "enterprise_value": 10580.4,
+  "base_revenue": {
+    "value": 3449.0,
+    "period": "TTM to 30 Jun 2026",
+    "source": "Module 01; re-run from EDGAR XBRL: FY2025 3,131.3 (10-K) + H1 2026 1,792.7 - H1 2025 1,475.0 (Q2 2026 10-Q)"
+  },
+  "base_fcf_margin": {
+    "value": 0.0417,
+    "definition": "(OCF - capex - capitalized software - SBC) / revenue, TTM; before restructuring add-back",
+    "source": "Module 01; re-run from EDGAR XBRL: OCF 856.4 - PP&E 58.9 - cap. software 139.1 - SBC 514.7 = 143.7; / 3,449.0 = 4.17%"
+  },
+  "sbc_treatment": "expense",
+  "discount_rate": {
+    "value": 0.105,
+    "method": "CAPM cost of equity; no debt so cost of equity = discount rate. 5.24% + 1.25 x 4.20% = 10.49%, rounded to 10.5%",
+    "risk_free": {
+      "value": 0.0524,
+      "source": "US Treasury daily par yield curve, 10-year, 9 Oct 2026 (home.treasury.gov daily-treasury-rates.csv, 2026)"
+    },
+    "beta": {
+      "value": 1.25,
+      "source": "Damodaran, Betas by Sector (US), Software (System & Application), unlevered beta corrected for cash 1.25, Jan 2026 (pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/Betas.html). Cross-checks: stockanalysis.com 5Y beta 1.24 (updated 11 Oct 2026); own regression vs S&P 500 from Yahoo prices 1.18 (60 monthly) to 1.27 (104 weekly)"
+    },
+    "equity_risk_premium": {
+      "value": 0.042,
+      "source": "Damodaran implied ERP for S&P 500, 1 Oct 2026 (trailing 12m, adjusted payout), pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm"
+    }
+  },
+  "terminal_growth": {
+    "value": 0.03,
+    "source": "Judgment: midpoint between zero real growth (2.0% long-run PCE inflation) and the full nominal-GDP cap (4.0%); a mature software firm should not hold its share of the economy forever",
+    "cap": 0.04,
+    "cap_source": "FOMC Summary of Economic Projections, 16 Sep 2026, Table 1 longer-run medians: real GDP 2.0% + PCE inflation 2.0% = about 4.0% nominal (federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm)"
+  },
+  "horizon_years": 10,
+  "margin_ramp_years": 10,
+  "grid_growths": [
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2
+  ],
+  "peer_margins": {
+    "Adobe": {
+      "value": 0.333,
+      "period": "FY2025 (to 28 Nov 2025)",
+      "source": "ADBE 10-K filed 2026-01-15: OCF 10,031 - capex 179 - SBC 1,942 = 7,910 / revenue 23,769 ($M)"
+    },
+    "Salesforce": {
+      "value": 0.262,
+      "period": "FY2026 (to 31 Jan 2026)",
+      "source": "CRM 10-K filed 2026-03-02: OCF 14,996 - capex 594 - SBC 3,509 = 10,893 / revenue 41,525 ($M)"
+    },
+    "Intuit": {
+      "value": 0.306,
+      "period": "FY2026 (to 31 Jul 2026)",
+      "source": "INTU 10-K filed 2026-09-09: OCF 8,838 - PP&E 175 - cap. internal-use software 46 - SBC 2,056 = 6,561 / revenue 21,448 ($M)"
+    },
+    "Autodesk": {
+      "value": 0.225,
+      "period": "FY2026 (to 31 Jan 2026)",
+      "source": "ADSK 10-K filed 2026-03-03: OCF 2,452 - capex 43 - SBC 788 = 1,621 / revenue 7,206 ($M)"
+    }
+  },
+  "grid": [
+    {
+      "growth": 0.06,
+      "wacc": 0.095,
+      "margin": 0.183,
+      "terminal_share": 0.683
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.095,
+      "margin": 0.1537,
+      "terminal_share": 0.692
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.095,
+      "margin": 0.1292,
+      "terminal_share": 0.699
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.095,
+      "margin": 0.1088,
+      "terminal_share": 0.705
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.095,
+      "margin": 0.0918,
+      "terminal_share": 0.71
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.095,
+      "margin": 0.0776,
+      "terminal_share": 0.713
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.095,
+      "margin": 0.0657,
+      "terminal_share": 0.716
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.095,
+      "margin": 0.0557,
+      "terminal_share": 0.718
+    },
+    {
+      "growth": 0.06,
+      "wacc": 0.105,
+      "margin": 0.2202,
+      "terminal_share": 0.651
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.105,
+      "margin": 0.1854,
+      "terminal_share": 0.66
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.105,
+      "margin": 0.1562,
+      "terminal_share": 0.668
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.105,
+      "margin": 0.1319,
+      "terminal_share": 0.676
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.105,
+      "margin": 0.1115,
+      "terminal_share": 0.682
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.105,
+      "margin": 0.0944,
+      "terminal_share": 0.687
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.105,
+      "margin": 0.0801,
+      "terminal_share": 0.691
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.105,
+      "margin": 0.068,
+      "terminal_share": 0.694
+    },
+    {
+      "growth": 0.06,
+      "wacc": 0.115,
+      "margin": 0.26,
+      "terminal_share": 0.619
+    },
+    {
+      "growth": 0.08,
+      "wacc": 0.115,
+      "margin": 0.2194,
+      "terminal_share": 0.63
+    },
+    {
+      "growth": 0.1,
+      "wacc": 0.115,
+      "margin": 0.1853,
+      "terminal_share": 0.639
+    },
+    {
+      "growth": 0.12,
+      "wacc": 0.115,
+      "margin": 0.1568,
+      "terminal_share": 0.648
+    },
+    {
+      "growth": 0.14,
+      "wacc": 0.115,
+      "margin": 0.1328,
+      "terminal_share": 0.655
+    },
+    {
+      "growth": 0.16,
+      "wacc": 0.115,
+      "margin": 0.1127,
+      "terminal_share": 0.661
+    },
+    {
+      "growth": 0.18,
+      "wacc": 0.115,
+      "margin": 0.0957,
+      "terminal_share": 0.666
+    },
+    {
+      "growth": 0.2,
+      "wacc": 0.115,
+      "margin": 0.0815,
+      "terminal_share": 0.671
+    }
+  ],
+  "headline": {
+    "growth": 0.1,
+    "margin": 0.1562,
+    "wacc": 0.105,
+    "terminal_share": 0.668,
+    "basis": "Estimate. Constant 10% revenue CAGR = equivalent of a guidance-anchored path starting at the Q3 2026 guide (+14%) and fading straight-line to 6% in year 10 (CAGR 9.97%; that fade itself needs 15.3%). Margin read from the grid row (reverse_dcf.py)."
+  },
+  "sensitivity_notes": {
+    "terminal_growth_2.5/3.5/4.0pct_at_headline": [
+      0.1641,
+      0.1482,
+      0.1398
+    ],
+    "restructuring_70M_added_to_EV": 0.1573,
+    "mid_year_discounting_at_12pct_growth": 0.125,
+    "price_minus_plus_10pct_at_12pct_growth": [
+      0.116,
+      0.1478
+    ]
+  }
+}

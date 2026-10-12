@@ -1,7 +1,7 @@
 {
   "slug": "hubspot-value-2",
   "question": "What is HubSpot worth per share, and how does that compare with today's share price?",
-  "status": "in_progress",
+  "status": "awaiting_partner",
   "pinned": {
     "units": "shares in millions; cash and debt in USD millions; price in USD per share",
     "shares": {
@@ -22,7 +22,42 @@
       "definition": "borrowings; operating leases excluded",
       "source": "Q2 2026 10-Q Note 10"
     },
-    "fcf_definition": "FCF = operating cash flow - capex - capitalized software (before restructuring add-back); FCF after SBC = FCF - stock-based compensation"
+    "fcf_definition": "FCF = operating cash flow - capex - capitalized software (before restructuring add-back); FCF after SBC = FCF - stock-based compensation",
+    "price": {
+      "value": 228.3,
+      "date": "2026-10-09",
+      "source": "NYSE close; Yahoo Finance chart API and stockanalysis.com"
+    },
+    "discount_rate": {
+      "value": 0.105,
+      "source": "CAPM: 10y UST 5.24% (Treasury.gov, 9 Oct 2026) + beta 1.25 (Damodaran software, Jan 2026) x ERP 4.20% (Damodaran implied, 1 Oct 2026)"
+    },
+    "terminal_growth": {
+      "value": 0.03,
+      "cap": 0.04,
+      "source": "cap = FOMC SEP 16 Sep 2026 longer-run real GDP 2.0% + PCE inflation 2.0%"
+    },
+    "ev_convention": "EV = price x diluted shares + debt - cash; announced restructuring cost excluded",
+    "peer_margins": {
+      "definition": "latest fiscal-year FCF after SBC / revenue, from 10-K",
+      "Adobe": {
+        "value": 0.333,
+        "period": "FY2025"
+      },
+      "Salesforce": {
+        "value": 0.262,
+        "period": "FY2026"
+      },
+      "Intuit": {
+        "value": 0.306,
+        "period": "FY2026",
+        "note": "incl. +$1,279M deferred-tax swing; 21.9% on FY2025"
+      },
+      "Autodesk": {
+        "value": 0.225,
+        "period": "FY2026"
+      }
+    }
   },
   "modules": {
     "01-fact-pack": {
@@ -30,7 +65,7 @@
       "depends_on": []
     },
     "02-implied-expectations": {
-      "status": "commissioned",
+      "status": "accepted",
       "depends_on": [
         "01-fact-pack"
       ]
