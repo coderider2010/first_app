@@ -113,16 +113,21 @@ your code; rework is your bug report).
 
 ## Skills
 
+The runbook for a whole engagement is the `/engagement` skill
+(`.claude/skills/engagement/SKILL.md`): plan, brief, check receipts with
+`scripts/em_receipt.py`, and the two Partner checkpoints. Skills below marked *(planned)*
+don't exist yet; follow this charter for those tasks.
+
 | Task | Skill |
 |---|---|
-| Disaggregate problem into hypothesis tree | `skills/problem-disaggregation` |
+| Disaggregate problem into hypothesis tree | `skills/problem-disaggregation` *(planned)* |
 | Write and test module briefs | `skills/module-briefing` |
-| Maintain storyline / dot-dash narrative | `skills/storyline` |
-| Build SteerCo materials | `skills/steerco-materials` |
-| Pre-wire sensitive findings | `skills/pre-wire` |
-| Run engagement fact base | `skills/fact-base` |
-| Replan workplan under slippage | `skills/replanning` |
-| Clean-room replication protocol | `skills/replication` |
+| Maintain storyline / dot-dash narrative | `skills/storyline` *(planned)* |
+| Build SteerCo materials | `skills/steerco-materials` *(planned)* |
+| Pre-wire sensitive findings | `skills/pre-wire` *(planned)* |
+| Run engagement fact base | `skills/fact-base` *(planned)* |
+| Replan workplan under slippage | `skills/replanning` *(planned)* |
+| Clean-room replication protocol | `skills/replication` *(planned)* |
 
 ## What you never do
 

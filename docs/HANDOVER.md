@@ -280,6 +280,28 @@ Phase 4 (the EM as an agent), which should reproduce this engagement end to end.
    document dropping negative-FCF peers from EV/FCF; a field for forward revenue.
 7. Brief template: define "cloud software" for usage-based models (Twilio).
 
+## Phase 4: the EM as an agent (built 2026-10-11, test pending)
+
+- **Design:** Claude Code subagents can't launch subagents, so the EM can't be a subagent
+  that commissions Associates. The EM is the **main session**, running the `/engagement`
+  skill (`.claude/skills/engagement/SKILL.md`). Phase 6's Agent SDK backend can lift this.
+- **Playbook:** set up `engagements/<slug>/` (never overwrite) → plan + briefs → Partner
+  checkpoint 1 (AskUserQuestion) → commission Associates in dependency order (03 and 04
+  in parallel) → receipt check per module → pin shared facts → synthesize `answer.md` →
+  Partner checkpoint 2.
+- **`engagement.json`:** engagement state plus `pinned` shared facts (shares, cash, debt,
+  price and date, discount rate, terminal growth). Facts only, never conclusions, because
+  cross-check modules may read it. `log.md` is the EM-only decision log.
+- **`em_receipt.py`:** re-runs the gate's verifier, checks the memo's answer and confidence,
+  rejects values that differ from the pins, and picks 3 random rows from tables with a
+  Source column for the EM to re-pull. Tested (11 tests) and run on the four Project Hub
+  modules (all ready_to_review).
+- **`module-briefing` skill:** the brief template and the Project Hub lessons (neutral
+  questions, EM-set benchmarks, pinned inputs, independence by construction).
+- **Test (open):** in a new session, `/engagement What is HubSpot worth per share?`.
+  Compare with `docs/engagements/hubspot-value/answer.md` (~$150–$345). Expect a new
+  slug such as `hubspot-value-2`.
+
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
 1. Fact-base MVP.
