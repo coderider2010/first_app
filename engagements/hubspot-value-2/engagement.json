@@ -71,7 +71,7 @@
       ]
     },
     "03-dcf-scenarios": {
-      "status": "commissioned",
+      "status": "accepted",
       "depends_on": [
         "01-fact-pack",
         "02-implied-expectations"
