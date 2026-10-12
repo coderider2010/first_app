@@ -2,14 +2,35 @@
   "slug": "hubspot-value-2",
   "question": "What is HubSpot worth per share, and how does that compare with today's share price?",
   "status": "in_progress",
-  "pinned": {},
+  "pinned": {
+    "units": "shares in millions; cash and debt in USD millions; price in USD per share",
+    "shares": {
+      "value": 52.403,
+      "basis": "diluted",
+      "as_of": "2026-06-30",
+      "source": "modules/01-fact-pack (49.658M basic + 2.745M RSUs/PSUs, Q2 2026 10-Q)"
+    },
+    "cash": {
+      "value": 1383.2,
+      "as_of": "2026-06-30",
+      "definition": "cash + short- and long-term investments",
+      "source": "Q2 2026 10-Q balance sheet"
+    },
+    "debt": {
+      "value": 0.0,
+      "as_of": "2026-06-30",
+      "definition": "borrowings; operating leases excluded",
+      "source": "Q2 2026 10-Q Note 10"
+    },
+    "fcf_definition": "FCF = operating cash flow - capex - capitalized software (before restructuring add-back); FCF after SBC = FCF - stock-based compensation"
+  },
   "modules": {
     "01-fact-pack": {
-      "status": "commissioned",
+      "status": "accepted",
       "depends_on": []
     },
     "02-implied-expectations": {
-      "status": "planned",
+      "status": "commissioned",
       "depends_on": [
         "01-fact-pack"
       ]

@@ -16,3 +16,8 @@
 - Disconfirmation (charter, >=20% of capacity): the "Squeezed" story in 03 and the independent
   peer cross-check in 04 carry the case against the working answer.
 - Checkpoint 1: Partner approved the plan and the four briefs as written. Commissioning 01.
+- 01 accepted. Spot checks re-pulled from EDGAR (diluted-share components, buybacks, FY26 guidance) plus TTM revenue, cash, debt: all tie.
+- Escalation 1 (share count) adjudicated. Rule: pin the point count from the latest 10-Q balance sheet plus gross unvested awards from the closest filing disclosure; an omission under the 0.5% pin tolerance is accepted and stated rather than estimated. Pinned 52.403M (range 51.33–52.69M). Revisit at the Q3 10-Q.
+- Escalation 5 (FY2023 immaterial revision) accepted; accounting item, reported to Partner for information.
+- Out-of-scope items for the Partner: CLO resigned 8 Oct 2026 (8-K); 7% workforce cut 1 Oct 2026 ($65–75M, mostly Q4). No new module; noted for answer caveats.
+- Pinned shares, cash, debt, FCF definition. Commissioning 02.
