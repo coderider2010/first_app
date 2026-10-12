@@ -1,7 +1,7 @@
 {
   "slug": "hubspot-value-2",
   "question": "What is HubSpot worth per share, and how does that compare with today's share price?",
-  "status": "awaiting_partner",
+  "status": "in_progress",
   "pinned": {
     "units": "shares in millions; cash and debt in USD millions; price in USD per share",
     "shares": {
@@ -71,14 +71,14 @@
       ]
     },
     "03-dcf-scenarios": {
-      "status": "planned",
+      "status": "commissioned",
       "depends_on": [
         "01-fact-pack",
         "02-implied-expectations"
       ]
     },
     "04-peer-comparison": {
-      "status": "planned",
+      "status": "commissioned",
       "depends_on": [
         "01-fact-pack",
         "02-implied-expectations"
