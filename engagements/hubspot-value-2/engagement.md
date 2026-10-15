@@ -1,6 +1,6 @@
 # Engagement: Project Hub II (what is HubSpot worth per share?)
 
-**Status:** In progress · Plan approved 2026-10-12 · **Started:** 2026-10-12 · **Partner:** the user · **EM:** main session (`/engagement`)
+**Status:** Complete; answer approved by Partner 2026-10-15 ([answer](answer.md)) · Plan approved 2026-10-12 · **Started:** 2026-10-12 · **Partner:** the user · **EM:** main session (`/engagement`)
 
 ## The client and the question
 

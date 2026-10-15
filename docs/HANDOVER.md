@@ -298,9 +298,19 @@ Phase 4 (the EM as an agent), which should reproduce this engagement end to end.
   modules (all ready_to_review).
 - **`module-briefing` skill:** the brief template and the Project Hub lessons (neutral
   questions, EM-set benchmarks, pinned inputs, independence by construction).
-- **Test (open):** in a new session, `/engagement What is HubSpot worth per share?`.
-  Compare with `docs/engagements/hubspot-value/answer.md` (~$150–$345). Expect a new
-  slug such as `hubspot-value-2`.
+- **Test (passed 2026-10-15):** `/engagement What is HubSpot worth per share?` ran end to
+  end as `engagements/hubspot-value-2/` (4 Associate runs, no rejections, both Partner
+  checkpoints). Associates were barred from the first run's files. Result: Squeezed $145 /
+  peers-cash $178 / Grows up $332 / peers-revenue $445 vs Project Hub's $149 / $161 / $344 /
+  $438; same hinge (cash conversion, gap not SBC) and same verdict on the working answer.
+  Changes vs Project Hub: diluted shares in the fact pack; Module 03 blind to Module 02's
+  conclusion; pins in `engagement.json` with units. Open skill fixes from Associates' notes:
+  `valuation-dcf` step 1 should read pins from `engagement.json`; `valuation_check.py`
+  docstring should allow $M units; `comps.py` needs `--basis methods` and a preferred-stock
+  slot; no stub-period adjustment in the DCF (~3% low); `benchmarking` should define peer
+  share counts and decompose the margin gap beyond SBC; `company-profile` (stub) should
+  check proxy and EPS notes for unvested awards and not presume convertibles; no checker
+  for a fact pack.
 
 ## Build order (from the brief; superseded by PROJECT_PLAN.md)
 
